@@ -73,7 +73,7 @@ export default {
         name: "Home",
       });
     };
-    return { post, error }, handleDelete;
+    return { post, error, handleDelete };
   },
 };
 </script>
