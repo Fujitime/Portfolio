@@ -1,82 +1,67 @@
 <template>
-  <div>
-    {{ title }}
-    {{ body }}
-  </div>
-
-  <!-- Page Header -->
-  <header
-    class="masthead"
-    style="background-image: url('static/img/contact-bg.jpg')"
-  >
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>Create new post</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content -->
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        <h1 class="text-center mb-5">Create new post</h1>
         <form @submit.prevent="handleSubmit">
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Title</label>
-              <input
-                type="text"
-                name="name"
-                class="form-control"
-                placeholder="title post"
-                v-mode="title"
-                required
-              />
-              <p class="help-block text-danger"></p>
-            </div>
+          <div class="form-group">
+            <label for="post-title">Title</label>
+            <input
+              id="post-title"
+              type="text"
+              class="form-control"
+              placeholder="Title of post"
+              v-model="title"
+              required
+            />
           </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Body</label>
-              <textarea
-                rows="5"
-                name="message"
-                class="form-control"
-                placeholder="Input body post"
-                v-model="body"
-                required
-              ></textarea>
-              <p class="help-block text-danger"></p>
-            </div>
+          <div class="form-group">
+            <label for="post-body">Body</label>
+            <textarea
+              id="post-body"
+              rows="8"
+              class="form-control"
+              placeholder="Content of post"
+              v-model="body"
+              required
+            ></textarea>
           </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Tags</label>
+          <div class="form-group">
+            <label for="post-tags">Tags : </label>
+            <span v-for="tag in tags" :key="tag"># {{ tag }}</span>
+            <div class="input-group">
               <input
+                id="post-tags"
                 type="text"
-                name="name"
                 class="form-control"
-                placeholder="input tags"
+                placeholder="Enter tags"
                 v-model="tag"
                 @keydown.enter.prevent="handleKeydown"
               />
-              <p class="help-block text-danger"></p>
+
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  @click.prevent="handleKeydown"
+                >
+                  Add tag
+                </button>
+              </div>
             </div>
-            <span v-for="tag in tags" :key="tag"># {{ tag }}</span>
+            <span
+              v-for="tag in tags"
+              :key="tag"
+              class="badge badge-secondary mr-1"
+            >
+              #{{ tag }}
+            </span>
           </div>
-          <br />
-          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
   </div>
-
-  <hr />
 </template>
 
 <script>

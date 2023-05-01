@@ -1,20 +1,21 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/">naghiyev.com</a>
+      <router-link class="navbar-brand" :to="{ name: 'Home' }"
+        >Fujitime</router-link
+      >
       <button
-        class="navbar-toggler navbar-toggler-right"
+        class="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarResponsive"
-        aria-controls="navbarResponsive"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        Menu
-        <i class="fas fa-bars"></i>
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Home' }"
@@ -22,7 +23,9 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">About</a>
+            <router-link class="nav-link" :to="{ name: 'About' }"
+              >About</router-link
+            >
           </li>
         </ul>
       </div>
