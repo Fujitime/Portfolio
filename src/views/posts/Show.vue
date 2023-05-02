@@ -6,19 +6,16 @@
         <div v-if="post">
           <div class="mb-3">
             <h1>{{ post.title }}</h1>
-            <button
+            <!-- <button
               class="btn btn-danger"
               @click="handleDelete"
               style="padding: 2px"
             >
               Delete
-            </button>
+            </button> -->
             <span class="meta-post" v-for="tag in post.tags" :key="tag"
               >#{{ tag }}</span
             >
-          </div>
-          <div class="mb-3">
-            <img :src="post.image_url" class="w-100" alt="Post image" />
           </div>
           <div>
             <p>{{ post.body }}</p>
@@ -28,6 +25,9 @@
         <div v-else>
           <Loading />
         </div>
+        <router-link to="/blogs" class="btn btn-outline-success btn-sm">
+          <i class="fas fa-arrow-left me-2"></i>Back to Posts
+        </router-link>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
 
 <script>
 import Loading from "@/components/Loading.vue";
-import { projectFirestore } from "@/firebase/config";
+// import { projectFirestore } from "@/firebase/config";
 import { getPost } from "@/composable/getPost";
 import { useRouter } from "vue-router";
 export default {
@@ -49,13 +49,13 @@ export default {
 
     load();
 
-    const handleDelete = async () => {
-      await projectFirestore.collection("posts").doc(props.id).delete();
-      route.push({
-        name: "Home",
-      });
-    };
-    return { post, error, handleDelete };
+    // const handleDelete = async () => {
+    //   await projectFirestore.collection("posts").doc(props.id).delete();
+    //   route.push({
+    //     name: "Home",
+    //   });
+    // };
+    return { post, error };
   },
 };
 </script>

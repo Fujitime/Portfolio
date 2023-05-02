@@ -1,34 +1,64 @@
 <template>
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div v-if="error">{{ error }}</div>
-        <div v-if="posts.length">
-          <PostList :posts="posts" />
-        </div>
-        <div v-else>
-          <Loading />
-        </div>
+  <div class="container py-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-4 col-md-6 text-center">
+        <img
+          src="@/assets/img/Yuaru.jpg"
+          class="rounded-circle mb-4"
+          alt="Profile Picture"
+          width="250"
+        />
+        <h1 class="h3 text-dark fw-bold">Fuji Halim Rabbani</h1>
+        <p class="text-dark">Software Engineer</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a
+              href="https://www.facebook.com/kang.komen.798"
+              target="_blank"
+              class="text-decoration-none text-dark"
+              ><i class="fab fa-facebook fa-lg"></i> Facebook</a
+            >
+          </li>
+          <li class="list-inline-item">
+            <a
+              href="https://github.com/Fujitime"
+              target="_blank"
+              class="text-decoration-none text-dark"
+              ><i class="fab fa-github fa-lg"></i> GitHub</a
+            >
+          </li>
+          <li class="list-inline-item">
+            <a
+              href="https://osu.ppy.sh/users/29747707"
+              target="_blank"
+              class="text-decoration-none text-dark"
+              ><i class="fas fa-gamepad fa-lg"></i> osu!</a
+            >
+          </li>
+          <li class="list-inline-item">
+            <a
+              href="https://discord.com/users/680289629571645440"
+              target="_blank"
+              class="text-decoration-none text-dark"
+              ><i class="fab fa-discord fa-lg"></i> Discord</a
+            >
+          </li>
+          <li class="list-inline-item">
+            <a
+              href="https://www.youtube.com/@waltahh"
+              target="_blank"
+              class="text-decoration-none text-dark"
+              ><i class="fab fa-youtube fa-lg"></i> Youtube</a
+            >
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import PostList from "../components/posts/PostList.vue";
-import Loading from "../components/Loading.vue";
-import getPosts from "../composable/getPosts.js";
-export default {
-  name: "Home",
-  components: {
-    PostList,
-    Loading,
-  },
-  setup() {
-    const { posts, error, load } = getPosts();
-    load();
-    return { posts, error };
-  },
-};
+export default {};
 </script>
+
+<style></style>

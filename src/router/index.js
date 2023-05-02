@@ -4,7 +4,8 @@ import About from "@/views/About.vue";
 import ShowPost from "../views/posts/Show.vue";
 import CreatePost from "../views/posts/Create.vue";
 import Tag from "../views/posts/Tag.vue";
-
+import BlogPosts from "@/views/BlogPosts.vue";
+import Projects from "@/views/Projects.vue";
 const routes = [
   {
     path: "/",
@@ -12,9 +13,19 @@ const routes = [
     component: Home,
   },
   {
+    path: "/blogs",
+    name: "Blogposts",
+    component: BlogPosts,
+  },
+  {
     path: "/about",
     name: "About",
     component: About,
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+    component: Projects,
   },
   {
     path: "/posts/create",

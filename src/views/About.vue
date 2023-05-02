@@ -6,6 +6,7 @@
           src="@/assets/img/Yuaru.jpg"
           alt="Foto Profil"
           class="img-fluid rounded rounded-circle"
+          width="500"
         />
       </div>
       <div class="col-lg-8 mb-4">

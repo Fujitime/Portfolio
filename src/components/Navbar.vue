@@ -1,9 +1,15 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <router-link class="navbar-brand" :to="{ name: 'Home' }"
-        >Fujitime</router-link
-      >
+      <router-link :to="{ name: 'Home' }" class="navbar-brand">
+        <img
+          src="@/assets/img/logo.png"
+          alt="Fujitime logo"
+          style="max-height: 150px"
+        />
+      </router-link>
+
+      <!-- Hamburger Button -->
       <button
         class="navbar-toggler"
         type="button"
@@ -12,20 +18,37 @@
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        @click="showMenu = !showMenu"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+
+      <!-- Navigation Menu Items -->
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        :class="{ show: showMenu }"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Home' }"
-              >Home</router-link
+              >🏠 Home</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'About' }"
-              >About</router-link
-            >
+            <router-link class="nav-link" :to="{ name: 'About' }">
+              <i class="fa fa-info-circle"></i> About
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'Blogposts' }">
+              <i class="fa fa-newspaper"></i> Posts
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'Projects' }">
+              <i class="fa fa-folder"></i> Projects
+            </router-link>
           </li>
         </ul>
       </div>
@@ -34,7 +57,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+};
 </script>
 
 <style></style>
