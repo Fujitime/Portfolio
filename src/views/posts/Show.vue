@@ -6,19 +6,19 @@
         <div v-if="post">
           <div class="mb-3">
             <h1>{{ post.title }}</h1>
-            <!-- <button
+            <button
               class="btn btn-danger"
               @click="handleDelete"
               style="padding: 2px"
             >
               Delete
-            </button> -->
+            </button>
             <span class="meta-post" v-for="tag in post.tags" :key="tag"
               >#{{ tag }}</span
             >
           </div>
           <div>
-            <p>{{ post.body }}</p>
+            <p class="post-body">{{ post.body }}</p>
           </div>
           <hr />
         </div>
@@ -35,7 +35,7 @@
 
 <script>
 import Loading from "@/components/Loading.vue";
-// import { projectFirestore } from "@/firebase/config";
+import { projectFirestore } from "@/firebase/config";
 import { getPost } from "@/composable/getPost";
 import { useRouter } from "vue-router";
 export default {
@@ -49,15 +49,19 @@ export default {
 
     load();
 
-    // const handleDelete = async () => {
-    //   await projectFirestore.collection("posts").doc(props.id).delete();
-    //   route.push({
-    //     name: "Home",
-    //   });
-    // };
-    return { post, error };
+    const handleDelete = async () => {
+      await projectFirestore.collection("posts").doc(props.id).delete();
+      route.push({
+        name: "Home",
+      });
+    };
+    return { post, error, handleDelete };
   },
 };
 </script>
 
-<style></style>
+<style>
+.post-body {
+  white-space: pre-wrap;
+}
+</style>

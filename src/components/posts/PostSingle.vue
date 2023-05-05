@@ -21,7 +21,10 @@ export default {
   props: ["post"],
   setup(props) {
     const snippet = computed(() => {
-      return props.post.body.substring(0, 50) + "...";
+      if (props.post.body) {
+        return props.post.body.substring(0, 50) + "...";
+      }
+      return "";
     });
     return { snippet };
   },

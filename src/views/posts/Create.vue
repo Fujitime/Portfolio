@@ -18,6 +18,7 @@
           <div class="form-group">
             <label for="post-body">Body</label>
             <textarea
+              @input="processBodyInput"
               id="post-body"
               rows="8"
               class="form-control"
@@ -96,6 +97,9 @@ export default {
       router.push({
         name: "Home",
       });
+      const processBodyInput = () => {
+        body.value = body.value.replace(/\r?\n/g, "<br>");
+      };
     };
     return { title, body, tag, tags, handleKeydown, handleSubmit };
   },

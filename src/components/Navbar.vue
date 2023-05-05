@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <router-link :to="{ name: 'Home' }" class="navbar-brand">
+      <router-link :to="{ name: 'CreatePost' }" class="navbar-brand">
         <img
           src="@/assets/img/logo.png"
           alt="Fujitime logo"
@@ -29,26 +29,26 @@
         :class="{ show: showMenu }"
         id="navbarNav"
       >
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Home' }"
               >🏠 Home</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'About' }">
-              <i class="fa fa-info-circle"></i> About
-            </router-link>
+            <router-link class="nav-link" :to="{ name: 'About' }"
+              ><i class="fa fa-info-circle"></i> About</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Blogposts' }">
-              <i class="fa fa-newspaper"></i> Posts
-            </router-link>
+            <router-link class="nav-link" :to="{ name: 'Blogposts' }"
+              ><i class="fa fa-newspaper"></i> Posts</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Projects' }">
-              <i class="fa fa-folder"></i> Projects
-            </router-link>
+            <router-link class="nav-link" :to="{ name: 'Projects' }"
+              ><i class="fa fa-folder"></i> Projects</router-link
+            >
           </li>
         </ul>
       </div>

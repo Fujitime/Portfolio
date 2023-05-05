@@ -7,6 +7,7 @@
           class="rounded-circle mb-4"
           alt="Profile Picture"
           width="250"
+          preload
         />
         <h1 class="h3 text-dark fw-bold">Fuji Halim Rabbani</h1>
         <p class="text-dark">Software Engineer</p>
@@ -19,7 +20,7 @@
               ><i class="fab fa-facebook fa-lg"></i> Facebook</a
             >
           </li>
-          <li class="list-inline-item">
+          <li class="list-inline-item ml-3">
             <a
               href="https://github.com/Fujitime"
               target="_blank"
@@ -27,7 +28,7 @@
               ><i class="fab fa-github fa-lg"></i> GitHub</a
             >
           </li>
-          <li class="list-inline-item">
+          <li class="list-inline-item ml-3">
             <a
               href="https://osu.ppy.sh/users/29747707"
               target="_blank"
@@ -35,7 +36,7 @@
               ><i class="fas fa-gamepad fa-lg"></i> osu!</a
             >
           </li>
-          <li class="list-inline-item">
+          <li class="list-inline-item ml-3">
             <a
               href="https://discord.com/users/680289629571645440"
               target="_blank"
@@ -43,7 +44,7 @@
               ><i class="fab fa-discord fa-lg"></i> Discord</a
             >
           </li>
-          <li class="list-inline-item">
+          <li class="list-inline-item ml-3">
             <a
               href="https://www.youtube.com/@waltahh"
               target="_blank"
@@ -58,7 +59,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    const img = new Image();
+    img.src = "@/assets/img/Yuaru.jpg";
+  },
+};
 </script>
 
 <style></style>

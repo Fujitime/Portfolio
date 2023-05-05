@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <h1 class="text-center fw-bold mb-5">My Projects</h1>
+    <h1 class="text-center fw-bold mb-5">Projects</h1>
     <div class="row">
       <div
         class="col-lg-4 mb-5"
@@ -14,7 +14,9 @@
             <p class="card-text">{{ project.description }}</p>
           </div>
           <div class="card-footer">
-            <a :href="project.link" class="btn btn-primary">View Project</a>
+            <a :href="project.link" target="_blank" class="btn btn-primary"
+              >View Project</a
+            >
           </div>
         </div>
       </div>
@@ -29,25 +31,47 @@ export default {
     return {
       projects: [
         {
-          title: "Project 1",
+          title: "Bio-card",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "https://via.placeholder.com/350x200",
-          link: "https://example.com/project1",
+            "Saya membuat bio card menggunakan API Github untuk menampilkan repository saya, API Osu untuk menampilkan skor terbaik saya, dan API Youtube untuk menampilkan video terakhir yang diunggah.",
+          image: "https://i.ibb.co/nBK8k48/Screenshot-223.png",
+          link: "https://fujitimebiocard.netlify.app/",
         },
         {
-          title: "Project 2",
+          title: "Single Page Apllication",
           description:
-            "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          image: "https://via.placeholder.com/350x200",
-          link: "https://example.com/project2",
+            "Menggunakan React dengan mengakses News API. Memungkinkan pengguna untuk menemukan berita terbaru dari berbagai sumber berita, seperti CNN, BBC, dan The New York Times.",
+          image: "https://i.ibb.co/9rfP7cr/Screenshot-220.png",
+          link: "https://my-first-cra.netlify.app/",
         },
         {
-          title: "Project 3",
+          title: "Bookshelf App",
           description:
-            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          image: "https://via.placeholder.com/350x200",
-          link: "https://example.com/project3",
+            "Mengkelola buku yang telah dibaca dengan menyimpan data pada local storage, Membuat Aplikasi Back-End sederhana dengan javascript.",
+          image: "https://i.ibb.co/SRnmK1B/Screenshot-221.png",
+          link: "https://fuji-bookshelf.netlify.app/",
+        },
+        {
+          title: "Zenplayers",
+          description:
+            "Saya menambahkan fitur dark mode pada music player yang telah di-fork dari akun Github iyanfatur1412.",
+          image: "https://i.ibb.co/9HLr4r4/Screenshot-222.png",
+          link: "https://fujitime.github.io/zenplayers/",
+        },
+        {
+          title: "WeebsBlogger",
+          description:
+            "Membuat blog menggunakan Laravel dengan menerapkan fitur login dan menerapkan CRUD pada Dashboard dengan Authorization",
+          image:
+            "https://fujitime.github.io/dist/img/portfolio/weebsblogger.png",
+          link: "https://github.com/Fujitime/WeebsBlogger",
+        },
+        {
+          title: "Contact App",
+          description:
+            "Aplikasi kontak menggunakan Express.js dan EJS sebagai templating engine-nya. Memungkinkan pengguna untuk menambah, mengedit, dan menghapus kontak dari daftar kontak mereka.",
+          image: "https://i.ibb.co/sC6GZcb/Screenshot-77-1.png",
+          link: "https://github.com/Fujitime/Contact-app",
         },
       ],
     };
