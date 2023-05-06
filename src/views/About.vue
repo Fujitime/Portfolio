@@ -14,8 +14,7 @@
         <h2 class="font-weight-bold mb-4">Halo👋 Saya Fuji Halim Rabbani</h2>
         <p class="lead mb-4">
           Biasa dipanggil dengan nama panggilan, Fuji. Saya adalah seorang pria
-          biasa dengan beragam hobi, salah satunya adalah anime dan teknologi
-          Saya juga seorang pemimpi dan seorang siswa yang belum lulus.
+          biasa dengan beragam hobi, salah satunya adalah anime dan teknologi,
         </p>
         <p class="lead mb-4">
           Saya seorang web developer yang senang belajar teknologi terbaru dan
@@ -29,12 +28,7 @@
 </template>
 
 <script>
-export default {
-  mounted() {
-    const img = new Image();
-    img.src = "@/assets/img/Yuaru.jpg";
-  },
-};
+export default {};
 </script>
 
 <style></style>

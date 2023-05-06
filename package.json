@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^5.2.3",
     "core-js": "^3.8.3",
+    "dotenv": "^16.0.3",
     "firebase": "8.3.1",
     "firestorm": "^0.1.5",
     "jquery": "^3.6.4",

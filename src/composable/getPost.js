@@ -1,8 +1,22 @@
 import { ref } from "vue";
 import { projectFirestore } from "@/firebase/config";
+
+// Inisialisasi cache dengan objek kosong
+const cache = {};
+
 export const getPost = (id) => {
+  if (!id) {
+    throw Error("Invalid input: id cannot be empty");
+  }
+
   const post = ref(null);
   const error = ref(null);
+
+  // Cek apakah data sudah tersimpan di cache
+  if (cache[id]) {
+    post.value = cache[id];
+    return { post, error, load: () => {} };
+  }
 
   const load = async () => {
     try {
@@ -12,10 +26,13 @@ export const getPost = (id) => {
         throw Error("Data not available ᗜ˰ᗜ");
       }
 
-      post.value = {
+      // Simpan data ke cache
+      cache[id] = {
         ...res.data(),
         id: res.id,
       };
+
+      post.value = cache[id];
     } catch (err) {
       error.value = err.message;
     }

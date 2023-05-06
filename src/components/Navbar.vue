@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <router-link :to="{ name: 'CreatePost' }" class="navbar-brand">
+      <router-link :to="{ name: 'Home' }" class="navbar-brand">
         <img
           src="@/assets/img/logo.png"
           alt="Fujitime logo"

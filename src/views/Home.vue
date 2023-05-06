@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-4 col-md-6 text-center">
         <img
@@ -59,12 +59,7 @@
 </template>
 
 <script>
-export default {
-  mounted() {
-    const img = new Image();
-    img.src = "@/assets/img/Yuaru.jpg";
-  },
-};
+export default {};
 </script>
 
 <style></style>

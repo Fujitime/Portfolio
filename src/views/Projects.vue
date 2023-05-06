@@ -62,8 +62,7 @@ export default {
           title: "WeebsBlogger",
           description:
             "Membuat blog menggunakan Laravel dengan menerapkan fitur login dan menerapkan CRUD pada Dashboard dengan Authorization",
-          image:
-            "https://fujitime.github.io/dist/img/portfolio/weebsblogger.png",
+          image: "https://i.ibb.co/DD7fPhL/weebsblogger.png",
           link: "https://github.com/Fujitime/WeebsBlogger",
         },
         {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import About from "@/views/About.vue";
 import ShowPost from "../views/posts/Show.vue";
-import CreatePost from "../views/posts/Create.vue";
+
 import Tag from "../views/posts/Tag.vue";
 import BlogPosts from "@/views/BlogPosts.vue";
 import Projects from "@/views/Projects.vue";
@@ -26,11 +26,6 @@ const routes = [
     path: "/projects",
     name: "Projects",
     component: Projects,
-  },
-  {
-    path: "/posts/create",
-    name: "CreatePost",
-    component: CreatePost,
   },
   {
     path: "/posts/:id",
