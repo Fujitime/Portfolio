@@ -1,18 +1,20 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-// bootstrap
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.css";
-// jquery
-import jQuery from "jquery";
-window.$ = jQuery;
+// tailwind
+import "./assets/css/output.css";
 
 // fontawesome
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
-// clean blog
-import "@/assets/css/clean-blog.css";
-import "@/assets/js/clean-blog.js";
-createApp(App).use(router).mount("#app");
+
+const app = createApp(App);
+app.use(router);
+app.mount("#app");
+
+AOS.init({
+  once: true,
+});

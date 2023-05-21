@@ -14,7 +14,7 @@ export default {};
   margin: 30px auto;
   border: 3px solid transparent;
   border-radius: 50%;
-  border-top-color: chartreuse;
+  border-top-color: skyblue;
   animation: spin 1s ease infinite;
 }
 @keyframes spin {

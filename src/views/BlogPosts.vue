@@ -1,9 +1,8 @@
 <template>
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div v-if="error">{{ error }}</div>
+  <div class="container px-4 py-8 lg:py-16 pt-20">
+    <div class="mx-auto max-w-4xl">
+      <div v-if="error" class="text-red-500">{{ error }}</div>
+      <div v-else>
         <div v-if="posts.length">
           <PostList :posts="posts" />
         </div>
@@ -19,6 +18,7 @@
 import PostList from "../components/posts/PostList.vue";
 import Loading from "../components/Loading.vue";
 import getPosts from "../composable/getPosts.js";
+
 export default {
   name: "Blogposts",
   components: {
@@ -32,3 +32,5 @@ export default {
   },
 };
 </script>
+
+<style></style>
