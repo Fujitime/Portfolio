@@ -1,4 +1,4 @@
-# vueblog
+# Fuji portfolio
 
 ## Project setup
 ```
