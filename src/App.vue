@@ -1,16 +1,16 @@
 <template>
-  <div class="d-flex flex-column min-vh-100">
-    <Navbar class="mb-4" />
-    <div class="flex-grow-1 px-3">
-      <router-view class="mt-4" />
+  <div class="flex flex-col min-h-screen bg-gray-900 text-white">
+    <Navbar />
+    <div class="flex-grow">
+      <router-view />
+      <Footer />
     </div>
-    <Footer class="mt-auto" />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   components: {
@@ -20,4 +20,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+body {
+  background-color: #1f2937;
+}
+</style>

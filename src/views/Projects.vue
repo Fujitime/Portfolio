@@ -1,80 +1,109 @@
 <template>
-  <div class="container py-5">
-    <h1 class="text-center fw-bold mb-5">Projects</h1>
-    <div class="row">
-      <div
-        class="col-lg-4 mb-5"
-        v-for="(project, index) in projects"
-        :key="index"
-      >
-        <div class="card h-100">
-          <img :src="project.image" class="card-img-top" alt="Project Image" />
-          <div class="card-body">
-            <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-text">{{ project.description }}</p>
-          </div>
-          <div class="card-footer">
-            <a :href="project.link" target="_blank" class="btn btn-primary"
-              >View Project</a
-            >
+  <div class="bg-gray-900 py-10 pt-40">
+    <div class="container mx-auto px-10">
+      <h1 class="text-3xl font-bold text-center text-white mb-10">Projects</h1>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          v-for="(project, index) in projects"
+          :key="index"
+          class="aos-item"
+          :data-aos="'fade-up'"
+          :data-aos-delay="index * 100"
+        >
+          <div
+            class="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl flex flex-col"
+          >
+            <div class="relative">
+              <img
+                :src="project.image"
+                class="w-full h-48 object-cover rounded-t-lg"
+                alt="Project Image"
+              />
+              <div class="flex absolute right-0 top-0 bg-gray-700 p-2">
+                <div
+                  v-for="(language, langIndex) in project.languages"
+                  :key="langIndex"
+                  class=""
+                >
+                  <img
+                    :src="language"
+                    class="w-5 h-5 bg-cover mr-2"
+                    alt="Language Icon"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col flex-grow justify-between px-6 py-4">
+              <div>
+                <div class="font-bold text-xl mb-2 text-white">
+                  {{ project.title }}
+                </div>
+                <p class="text-gray-400 text-base">{{ project.description }}</p>
+              </div>
+              <div class="flex justify-end">
+                <a
+                  :href="project.link"
+                  target="_blank"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all"
+                >
+                  View Project
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div v-if="loading" class="flex justify-center mt-10">
+        <Loading />
+      </div>
+      <div v-else-if="projects.length === 0" class="flex justify-center mt-10">
+        <p class="text-gray-400">No projects found.</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { projectFirestore } from "@/firebase/config";
+import Loading from "@/components/Loading.vue";
 export default {
+  components: {
+    Loading,
+  },
   name: "Projects",
   data() {
     return {
-      projects: [
-        {
-          title: "Bio-card",
-          description:
-            "Saya membuat bio card menggunakan API Github untuk menampilkan repository saya, API Osu untuk menampilkan skor terbaik saya, dan API Youtube untuk menampilkan video terakhir yang diunggah.",
-          image: "https://i.ibb.co/nBK8k48/Screenshot-223.png",
-          link: "https://fujitimebiocard.netlify.app/",
-        },
-        {
-          title: "Single Page Apllication",
-          description:
-            "Menggunakan React dengan mengakses News API. Memungkinkan pengguna untuk menemukan berita terbaru dari berbagai sumber berita, seperti CNN, BBC, dan The New York Times.",
-          image: "https://i.ibb.co/9rfP7cr/Screenshot-220.png",
-          link: "https://my-first-cra.netlify.app/",
-        },
-        {
-          title: "Bookshelf App",
-          description:
-            "Mengkelola buku yang telah dibaca dengan menyimpan data pada local storage, Membuat Aplikasi Back-End sederhana dengan javascript.",
-          image: "https://i.ibb.co/SRnmK1B/Screenshot-221.png",
-          link: "https://fuji-bookshelf.netlify.app/",
-        },
-        {
-          title: "Zenplayers",
-          description:
-            "Saya menambahkan fitur dark mode pada music player yang telah di-fork dari akun Github iyanfatur1412.",
-          image: "https://i.ibb.co/9HLr4r4/Screenshot-222.png",
-          link: "https://fujitime.github.io/zenplayers/",
-        },
-        {
-          title: "WeebsBlogger",
-          description:
-            "Membuat blog menggunakan Laravel dengan menerapkan fitur login dan menerapkan CRUD pada Dashboard dengan Authorization",
-          image:
-            "https://fujitime.github.io/dist/img/portfolio/weebsblogger.png",
-          link: "https://github.com/Fujitime/WeebsBlogger",
-        },
-        {
-          title: "Contact App",
-          description:
-            "Aplikasi kontak menggunakan Express.js dan EJS sebagai templating engine-nya. Memungkinkan pengguna untuk menambah, mengedit, dan menghapus kontak dari daftar kontak mereka.",
-          image: "https://i.ibb.co/sC6GZcb/Screenshot-77-1.png",
-          link: "https://github.com/Fujitime/Contact-app",
-        },
-      ],
+      projects: [],
+      loading: true,
     };
+  },
+  mounted() {
+    this.fetchProjects();
+  },
+  methods: {
+    fetchProjects() {
+      const projectsCollection = projectFirestore.collection("projects");
+
+      projectsCollection
+        .get()
+        .then((querySnapshot) => {
+          const projects = [];
+          querySnapshot.forEach((doc) => {
+            const project = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            projects.push(project);
+          });
+          this.projects = projects;
+        })
+        .catch((error) => {
+          console.error("Error fetching projects:", error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
   },
 };
 </script>

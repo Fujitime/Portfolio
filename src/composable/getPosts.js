@@ -1,13 +1,22 @@
 import { ref } from "vue";
 import { projectFirestore } from "@/firebase/config";
 
-const getPosts = () => {
+const getPosts = (filterBy) => {
   const posts = ref([]);
   const error = ref(null);
 
   const load = async () => {
     try {
-      const res = await projectFirestore.collection("posts").get();
+      let res;
+      if (filterBy) {
+        res = await projectFirestore
+          .collection("posts")
+          .where("category", "==", filterBy)
+          .get();
+      } else {
+        // Jika tidak ada filter, ambil semua data
+        res = await projectFirestore.collection("posts").get();
+      }
 
       if (res.empty) {
         throw new Error("No data found");

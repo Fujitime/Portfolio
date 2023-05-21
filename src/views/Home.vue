@@ -1,70 +1,143 @@
 <template>
-  <div class="container py-5">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-lg-4 col-md-6 text-center">
-        <img
-          src="@/assets/img/Yuaru.jpg"
-          class="rounded-circle mb-4"
-          alt="Profile Picture"
-          width="250"
-          preload
-        />
-        <h1 class="h3 text-dark fw-bold">Fuji Halim Rabbani</h1>
-        <p class="text-dark">Software Engineer</p>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a
-              href="https://www.facebook.com/kang.komen.798"
-              target="_blank"
-              class="text-decoration-none text-dark"
-              ><i class="fab fa-facebook fa-lg"></i> Facebook</a
-            >
-          </li>
-          <li class="list-inline-item ml-3">
-            <a
-              href="https://github.com/Fujitime"
-              target="_blank"
-              class="text-decoration-none text-dark"
-              ><i class="fab fa-github fa-lg"></i> GitHub</a
-            >
-          </li>
-          <li class="list-inline-item ml-3">
-            <a
-              href="https://osu.ppy.sh/users/29747707"
-              target="_blank"
-              class="text-decoration-none text-dark"
-              ><i class="fas fa-gamepad fa-lg"></i> osu!</a
-            >
-          </li>
-          <li class="list-inline-item ml-3">
-            <a
-              href="https://discord.com/users/680289629571645440"
-              target="_blank"
-              class="text-decoration-none text-dark"
-              ><i class="fab fa-discord fa-lg"></i> Discord</a
-            >
-          </li>
-          <li class="list-inline-item ml-3">
-            <a
-              href="https://www.youtube.com/@waltahh"
-              target="_blank"
-              class="text-decoration-none text-dark"
-              ><i class="fab fa-youtube fa-lg"></i> Youtube</a
-            >
-          </li>
-        </ul>
+  <div>
+    <div
+      class="bg-fixed min-h-screen flex items-center justify-start overflow-hidden background-image"
+      :class="{ 'bg-loaded': imageLoaded }"
+    >
+      <div class="text-white text-left px-4 xl:mr-auto lg:mx-auto">
+        <h2
+          class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
+          data-aos="zoom-in-right"
+        >
+          Fuji <span class="text-blue-500"> Halim </span>
+          Rabbani
+        </h2>
+        <h3
+          class="ml-4 text-3xl md:text-4xl lg:text-5xl font-semibold mb-6"
+          data-aos="fade-in-right"
+        >
+          I'm
+          <span
+            class="typing-effect inline-block underline text-sky-500"
+            ref="typingElement"
+          ></span>
+        </h3>
+
+        <a
+          href="mailto:fujihalimrabani1601@gmail.com"
+          class="mt-8 inline-block text-white border-2 px-4 py-2 text-xl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="flex items-center justify-center">
+            <i class="fas fa-envelope-open-text text-white text-xl mr-2"></i>
+            <span class="text-white font-semibold"
+              >Contact <span class="text-blue-500"> Me! </span>
+            </span>
+          </div>
+        </a>
       </div>
     </div>
+    <AboutMe id="about" />
+    <ContactMe id="contacts" />
   </div>
 </template>
-
 <script>
+import AboutMe from "./About.vue";
+import ContactMe from "./Contact.vue";
+
 export default {
+  components: {
+    AboutMe,
+    ContactMe,
+  },
+  data() {
+    return {
+      imageLoaded: false,
+    };
+  },
   mounted() {
-    const img = new Image();
-    img.src = "@/assets/img/Yuaru.jpg";
+    this.setupTypingEffect();
+    this.preloadImage();
+  },
+  methods: {
+    preloadImage() {
+      const image = new Image();
+      image.src = "@/assets/img/background.png";
+
+      image.onload = () => {
+        this.imageLoaded = true;
+      };
+    },
+    setupTypingEffect() {
+      const typingElement = this.$refs.typingElement;
+      const textArray = ["Developer", "Coder", "Software Engineer"];
+      let textIndex = 0;
+      let charIndex = 0;
+      let timer;
+
+      const type = () => {
+        if (charIndex <= textArray[textIndex].length) {
+          typingElement.innerText = textArray[textIndex].substring(
+            0,
+            charIndex
+          );
+          charIndex++;
+          timer = setTimeout(type, 100);
+        } else {
+          setTimeout(erase, 1000);
+        }
+      };
+
+      const erase = () => {
+        if (charIndex >= 0) {
+          typingElement.innerText = textArray[textIndex].substring(
+            0,
+            charIndex
+          );
+          charIndex--;
+          timer = setTimeout(erase, 50);
+        } else {
+          textIndex++;
+          if (textIndex >= textArray.length) {
+            textIndex = 0;
+          }
+          setTimeout(type, 500);
+        }
+      };
+
+      type();
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.background-image {
+  position: relative;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    url("@/assets/img/background.png");
+  background-size: cover;
+  background-position: center;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.background-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: -1;
+}
+</style>
