@@ -52,6 +52,4 @@
 export default {};
 </script>
 
-<style>
-/* Styling khusus dark mode dapat dihapus */
-</style>
+<style></style>

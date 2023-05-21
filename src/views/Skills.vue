@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <h2 class="text-3xl font-bold mb-8 mt-12 text-white">My Database Use</h2>
+      <h2 class="text-3xl font-bold my-8 mt-12 text-white">My Database Use</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <h2 class="text-3xl font-bold mb-8 mt-12 text-white">My Tools</h2>
+      <h2 class="text-3xl font-bold my-8 mt-12 text-white">My Tools</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <h2 class="text-3xl font-bold mb-8 mt-12 text-white">
+      <h2 class="text-3xl font-bold my-8 mt-12 text-white">
         Currently Learning
       </h2>
 

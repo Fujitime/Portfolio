@@ -18,6 +18,7 @@
     "popper.js": "^1.16.1",
     "tailwindcss": "^3.3.2",
     "vue": "^3.2.13",
+    "vue-disqus": "^4.0.1",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

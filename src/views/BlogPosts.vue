@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-4 py-8 lg:py-16 pt-20">
+  <div class="container px-4 lg:py-16 pt-20">
     <div class="mx-auto max-w-4xl">
       <div v-if="error" class="text-red-500">{{ error }}</div>
       <div v-else>
