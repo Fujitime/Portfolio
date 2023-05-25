@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2>Profile</h2>
-    <p>Name: {{ userProfile.name }}</p>
-    <p>Email: {{ userProfile.email }}</p>
-    <button @click="editProfile">Edit Profile</button>
+    <div class="text-2xl font-bold mb-1">
+      <p class="mb-2"> <i class="fas fa-user"></i> {{ userProfile.name }}</p>
+    </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -13,12 +13,6 @@ export default {
     userProfile: {
       type: Object,
       required: true,
-    },
-  },
-  methods: {
-    editProfile() {
-      // Add logic to edit user profile
-      this.$emit('editProfile');
     },
   },
 };

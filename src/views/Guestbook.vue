@@ -1,20 +1,28 @@
 <template>
-  <div class="pt-32">
-    <h1>Guestbook</h1>
-
-    <div v-if="user">
-      <p>Signed in as: {{ user.displayName }}</p>
-      <button @click="signOut">Sign Out</button>
+  <div class="pt-32 mx-5">
+    <h1 class="text-3xl font-bold mb-4">Guestbook</h1>
+    <div class="flex justify-end">
+      <div v-if="user" class="mb-4">
+        <button @click="signOut" class="bg-red-500 text-white px-4 py-2 mt-2 rounded">Sign Out</button>
+      </div>
+      <div v-else>
+        <button @click="signInWithGoogle" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded">Sign In with Google</button>
+      </div>
     </div>
-    <div v-else>
-      <button @click="signInWithGoogle">Sign In with Google</button>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <UserProfile v-if="user" :userProfile="userProfile"/>
+
+      <div class="flex justify-center">
+        <div class="max-w-sm w-full">
+          <MessageForm v-if="user" @sendMessage="sendMessage" />
+        </div>
+      </div>
+
+      <div>
+        <MessageList :messages="messages"/>
+      </div>
     </div>
-
-    <UserProfile v-if="user" :userProfile="userProfile" @editProfile="editProfile" />
-
-    <MessageForm v-if="user" @sendMessage="sendMessage" />
-
-    <MessageList :messages="messages" @editMessage="editMessage" @deleteMessage="deleteMessage" />
   </div>
 </template>
 
@@ -44,7 +52,7 @@ export default {
     this.getMessages();
 
     // Langganan perubahan pada koleksi pesan
-    db.collection('messages').onSnapshot((snapshot) => {
+    db.collection('messages').onSnapshot(() => {
       this.getMessages();
     });
 
@@ -68,7 +76,8 @@ export default {
           this.messages = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             name: doc.data().name,
-            text: doc.data().text,
+            text: this.truncateText(doc.data().text, 43),
+            timestamp: doc.data().timestamp.toDate(), // Tambahkan properti timestamp
             editing: false,
             editedText: doc.data().text,
           }));
@@ -77,9 +86,20 @@ export default {
           console.error(error);
         });
     },
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+      }
+      return text;
+    },
     sendMessage() {
       // Pastikan pengguna telah sign in sebelum mengirim pesan
       if (!this.user) {
+        return;
+      }
+
+      if (this.newMessage.trim() === '') {
+        console.error('Message cannot be empty');
         return;
       }
 
@@ -119,11 +139,11 @@ export default {
     },
     deleteMessage(message) {
       db.collection('messages')
-      .doc(message.id)
-      .delete()
-      .catch((error) => {
-        console.error(error);
-      });
+        .doc(message.id)
+        .delete()
+        .catch((error) => {
+          console.error(error);
+        });
     },
     getUserProfile(userId) {
       db.collection('users')
@@ -158,12 +178,12 @@ export default {
         });
     },
     editProfile() {
-      // Tambahkan logika untuk mengedit profil pengguna
+      // Add logic to edit user profile
     },
     signInWithGoogle() {
       signInWithGoogle()
         .then(() => {
-          // Sign in berhasil
+          // Sign in successful
         })
         .catch((error) => {
           console.error(error);
@@ -172,7 +192,7 @@ export default {
     signOut() {
       signOut()
         .then(() => {
-          // Sign out berhasil
+          // Sign out successful
         })
         .catch((error) => {
           console.error(error);
@@ -187,3 +207,4 @@ ul {
   list-style: none;
 }
 </style>
+

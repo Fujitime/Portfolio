@@ -55,7 +55,7 @@
                   :to="{ name: 'Guestbook' }"
                   class="no-underline text-gray-200 hover:text-gray-400 font-semibold py-1"
                 >
-                  <i class="fa fa-folder"></i> Guestbook
+                <i class="fas fa-pen-square"></i> Guestbook
                 </router-link>
               </li>
             </ul>
@@ -167,6 +167,15 @@
                 >
                   <i class="fa fa-folder"></i>
                   <span class="pl-2 pb-1 top-0">Projects</span>
+                </router-link>
+              </li>
+              <li class="flex items-center">
+                <router-link
+                  :to="{ name: 'Guestbook' }"
+                  class="flex flex-1 text-md text-gray-700 hover:bg-gray-200 hover:text-sky-500 font-semibold px-4 py-2"
+                >
+                <i class="fas fa-pen-square"></i> 
+                  <span class="pl-2 pb-1 top-0">Guestbook</span>
                 </router-link>
               </li>
             </ul>
