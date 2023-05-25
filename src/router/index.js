@@ -3,7 +3,7 @@ import Home from "../views/Home.vue";
 import Skills from "@/views/Skills.vue";
 
 import ShowPost from "../views/posts/Show.vue";
-
+import Guestbook from "../views/Guestbook.vue"
 import Tag from "../views/posts/Tag.vue";
 import BlogPosts from "@/views/BlogPosts.vue";
 import Projects from "@/views/Projects.vue";
@@ -28,6 +28,11 @@ const routes = [
     path: "/projects",
     name: "Projects",
     component: Projects,
+  },
+  {
+    path: "/guestbook",
+    name: "Guestbook",
+    component: Guestbook,
   },
   {
     path: "/posts/:id",
