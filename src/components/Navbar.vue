@@ -50,6 +50,14 @@
                   <i class="fa fa-folder"></i> Projects
                 </router-link>
               </li>
+              <li>
+                <router-link
+                  :to="{ name: 'Guestbook' }"
+                  class="no-underline text-gray-200 hover:text-gray-400 font-semibold py-1"
+                >
+                  <i class="fa fa-folder"></i> Guestbook
+                </router-link>
+              </li>
             </ul>
           </div>
         </div>

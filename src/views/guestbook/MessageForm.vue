@@ -1,38 +1,52 @@
 <template>
-    <form @submit.prevent="sendMessage">
-      <input v-model="newMessage" placeholder="Tulis pesan..." />
-      <button type="submit">Kirim</button>
-      <p v-if="error" class="error">{{ error }}</p>
-    </form>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        newMessage: '',
-        error: '',
-      };
+  <form @submit.prevent="sendMessage">
+    <input v-model="newMessage" placeholder="Write a message..." />
+    <button type="submit">Send</button>
+    <p v-if="error" class="error">{{ error }}</p>
+  </form>
+</template>
+
+<script>
+import { db, auth } from '@/firebase/config.js';
+
+export default {
+  data() {
+    return {
+      newMessage: '',
+      error: '',
+    };
+  },
+  methods: {
+    sendMessage() {
+      if (this.newMessage.trim() === '') {
+        this.error = 'Message cannot be empty';
+        return;
+      }
+
+      this.error = '';
+
+      const user = auth.currentUser;
+      const userName = user ? user.displayName : 'Anonymous';
+
+      db.collection('messages')
+        .add({
+          name: userName,
+          text: this.newMessage,
+          timestamp: new Date(),
+        })
+        .then(() => {
+          this.newMessage = ''; // Reset the message input field
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    methods: {
-      sendMessage() {
-        if (this.newMessage.trim() === '') {
-          this.error = 'Pesan tidak boleh kosong';
-          return;
-        }
-  
-        this.error = '';
-  
-        this.$emit('sendMessage', this.newMessage);
-        this.newMessage = '';
-      },
-    },
-  };
-  </script>
-  
-  <style>
-  .error {
-    color: red;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style>
+.error {
+  color: red;
+}
+</style>

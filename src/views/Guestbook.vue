@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { ref } from 'vue';
 import { db, signInWithGoogle, signOut, auth } from '../firebase/config.js';
 import UserProfile from './guestbook/UserProfile.vue';
 import MessageForm from './guestbook/MessageForm.vue';
