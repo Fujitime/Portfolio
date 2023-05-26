@@ -93,30 +93,61 @@ export default {
       return text;
     },
     sendMessage() {
-      // Pastikan pengguna telah sign in sebelum mengirim pesan
-      if (!this.user) {
-        return;
-      }
+  if (!this.validateMessage()) {
+    return;
+  }
 
-      if (this.newMessage.trim() === '') {
-        console.error('Message cannot be empty');
-        return;
-      }
+  const user = auth.currentUser;
+  const userId = user ? user.uid : null;
 
-      db.collection('messages')
-        .add({
-          name: this.userProfile.name,
-          text: this.newMessage,
-          timestamp: new Date(),
-        })
-        .then(() => {
-          // Reset input pesan
-          this.newMessage = '';
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+  if (!userId) {
+    this.error = 'User is not authenticated';
+    return;
+  }
+
+  // Periksa apakah pengguna sudah mengirim pesan hari ini
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  db.collection('users')
+    .doc(userId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const userData = doc.data();
+        const lastSentTimestamp = userData.lastSentTimestamp;
+
+        if (lastSentTimestamp && lastSentTimestamp.toDate() >= today) {
+          this.error = 'You have already sent a message today';
+        } else {
+          this.error = '';
+
+          // Kirim pesan
+          const userName = user.displayName || 'Anonymous';
+
+          db.collection('messages')
+            .add({
+              name: userName,
+              text: this.newMessage,
+              timestamp: new Date(),
+            })
+            .then(() => {
+              this.newMessage = '';
+              this.updateLastSentTimestamp(userId, today);
+            })
+            .catch((error) => {
+              console.error(error);
+              this.error = 'Failed to send message. Please try again.';
+            });
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      this.error = 'Failed to check user data. Please try again.';
+    });
+},
+
     editMessage(message) {
       message.editing = true;
     },
@@ -146,20 +177,21 @@ export default {
         });
     },
     getUserProfile(userId) {
-      db.collection('users')
-        .doc(userId)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            this.userProfile = doc.data();
-          } else {
-            this.createUserProfile(userId);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+  db.collection('users')
+    .doc(userId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        this.userProfile = doc.data();
+      } else {
+        this.createUserProfile(userId);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      this.error = 'Failed to check user data. Please try again.';
+    });
+},
     createUserProfile(userId) {
       db.collection('users')
         .doc(userId)

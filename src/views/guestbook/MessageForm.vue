@@ -4,7 +4,7 @@
       <input v-model="newMessage" placeholder="Write a message..." class="flex-1 border border-gray-300 bg-gray-800 focus:outline-none focus:border-indigo-500 text-white rounded px-4 py-2 mr-2" />
       <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Send</button>
     </div>
-    <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
+    <p v-if="error" class="error mt-2">{{ error }}</p>
   </form>
 </template>
 
@@ -35,23 +35,63 @@ export default {
         return;
       }
 
-      this.error = '';
-
       const user = auth.currentUser;
-      const userName = user ? user.displayName : 'Anonymous';
+      const userId = user ? user.uid : null;
 
-      db.collection('messages')
-        .add({
-          name: userName,
-          text: this.newMessage,
-          timestamp: new Date(),
-        })
-        .then(() => {
-          this.newMessage = '';
+      if (!userId) {
+        this.error = 'User is not authenticated';
+        return;
+      }
+
+      // Periksa apakah pengguna sudah mengirim pesan hari ini
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      db.collection('users')
+        .doc(userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            const lastSentTimestamp = userData.lastSentTimestamp ? userData.lastSentTimestamp.toDate() : null;
+
+
+            if (lastSentTimestamp >= today) {
+              this.error = 'You have already sent a message today';
+            } else {
+              this.error = '';
+
+              // Kirim pesan
+              const userName = user.displayName || 'Anonymous';
+
+              db.collection('messages')
+                .add({
+                  name: userName,
+                  text: this.newMessage,
+                  timestamp: new Date(),
+                })
+                .then(() => {
+                  this.newMessage = '';
+                  this.updateLastSentTimestamp(userId, today);
+                })
+                .catch((error) => {
+                  console.error(error);
+                  this.error = 'Failed to send message. Please try again.';
+                });
+            }
+          }
         })
         .catch((error) => {
           console.error(error);
-          this.error = 'Failed to send message. Please try again.';
+          this.error = 'Failed to check user data. Please try again.';
+        });
+    },
+    updateLastSentTimestamp(userId, today) {
+      db.collection('users')
+        .doc(userId)
+        .set({ lastSentTimestamp: today }, { merge: true })
+        .catch((error) => {
+          console.error(error);
         });
     },
   },
