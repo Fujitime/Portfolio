@@ -2,9 +2,9 @@
   <form @submit.prevent="sendMessage" class="mb-4 bg-gray-900 p-4 rounded-lg">
     <div class="flex">
       <input v-model="newMessage" placeholder="Write a message..." class="flex-1 border border-gray-300 bg-gray-800 focus:outline-none focus:border-indigo-500 text-white rounded px-4 py-2 mr-2" />
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Send</button>
+      <button :disabled="isSending || isButtonDisabled" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Send</button>
     </div>
-    <p v-if="error" class="error mt-2">{{ error }}</p>
+    <p v-if="error" class="text-red-600 mt-2">{{ error }}</p>
   </form>
 </template>
 
@@ -16,6 +16,8 @@ export default {
     return {
       newMessage: '',
       error: '',
+      isSending: false,
+      isButtonDisabled: false,
     };
   },
   methods: {
@@ -31,19 +33,22 @@ export default {
       return true;
     },
     sendMessage() {
-      if (!this.validateMessage()) {
+      if (!this.validateMessage() || this.isSending) {
         return;
       }
 
+      this.isSending = true;
+      this.isButtonDisabled = true; 
       const user = auth.currentUser;
       const userId = user ? user.uid : null;
 
       if (!userId) {
         this.error = 'User is not authenticated';
+        this.isSending = false;
+        this.isButtonDisabled = false;
         return;
       }
 
-      // Periksa apakah pengguna sudah mengirim pesan hari ini
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
@@ -55,13 +60,13 @@ export default {
             const userData = doc.data();
             const lastSentTimestamp = userData.lastSentTimestamp ? userData.lastSentTimestamp.toDate() : null;
 
-
             if (lastSentTimestamp >= today) {
               this.error = 'You have already sent a message today';
+              this.isSending = false;
+              this.isButtonDisabled = false;
             } else {
               this.error = '';
 
-              // Kirim pesan
               const userName = user.displayName || 'Anonymous';
 
               db.collection('messages')
@@ -73,10 +78,16 @@ export default {
                 .then(() => {
                   this.newMessage = '';
                   this.updateLastSentTimestamp(userId, today);
+                  setTimeout(() => {
+                    this.isSending = false;
+                    this.isButtonDisabled = false;
+                  }, 5000); 
                 })
                 .catch((error) => {
                   console.error(error);
                   this.error = 'Failed to send message. Please try again.';
+                  this.isSending = false;
+                  this.isButtonDisabled = false;
                 });
             }
           }
@@ -84,6 +95,8 @@ export default {
         .catch((error) => {
           console.error(error);
           this.error = 'Failed to check user data. Please try again.';
+          this.isSending = false;
+          this.isButtonDisabled = false;
         });
     },
     updateLastSentTimestamp(userId, today) {
@@ -98,8 +111,3 @@ export default {
 };
 </script>
 
-<style>
-.error {
-  color: red;
-}
-</style>

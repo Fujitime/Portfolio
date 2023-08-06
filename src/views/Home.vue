@@ -71,7 +71,7 @@ export default {
     },
     setupTypingEffect() {
       const typingElement = this.$refs.typingElement;
-      const textArray = ["Developer", "Coder", "Software Engineer"];
+      const textArray = ["Web Developer", "Coder", "Software Engineer"];
       let textIndex = 0;
       let charIndex = 0;
       let timer;

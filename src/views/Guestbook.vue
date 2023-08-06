@@ -1,26 +1,24 @@
 <template>
   <div class="pt-32 mx-5">
-    <h1 class="text-3xl font-bold mb-4">Guestbook</h1>
+    <h1 class="text-3xl font-bold mb-4">Guestbook <i class="fas fa-pencil-alt"></i></h1>
+    <p class="mb-2">Berikan jejak Anda di guestbook ini. Ceritakan pendapat Anda dalam beberapa kata. <i class="far fa-smile"></i></p>
     <div class="flex justify-end">
       <div v-if="user" class="mb-4">
-        <button @click="signOut" class="bg-red-500 text-white px-4 py-2 mt-2 rounded">Sign Out</button>
+        <button @click="signOut" class="bg-red-500 text-white px-4 py-2 mt-2 rounded"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
       </div>
       <div v-else>
-        <button @click="signInWithGoogle" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded">Sign In with Google</button>
+        <button @click="signInWithGoogle" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded"><i class="fab fa-google"></i> Sign In with Google</button>
       </div>
     </div>
-
+    <UserProfile v-if="user" :userProfile="userProfile"/>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      <UserProfile v-if="user" :userProfile="userProfile"/>
-
+      <div class="">
+        <MessageList :messages="messages"/>
+      </div>
       <div class="flex justify-center">
         <div class="max-w-sm w-full">
           <MessageForm v-if="user" @sendMessage="sendMessage" />
         </div>
-      </div>
-
-      <div>
-        <MessageList :messages="messages"/>
       </div>
     </div>
   </div>

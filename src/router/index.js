@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Skills from "@/views/Skills.vue";
-
 import ShowPost from "../views/posts/Show.vue";
 import Guestbook from "../views/Guestbook.vue"
 import Tag from "../views/posts/Tag.vue";

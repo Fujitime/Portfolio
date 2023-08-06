@@ -19,8 +19,9 @@
                 </div>
               </div>
               <div>
-                <p class="post-body leading-relaxed">{{ post.body }}</p>
+                <div class="post-body leading-relaxed" v-html="post.body"></div>
               </div>
+            
               <hr class="my-6 border-gray-600" />
             </div>
             <div v-else>
@@ -59,15 +60,9 @@ export default {
     return { post, error };
   },
   mounted() {
-    // Load Disqus script dynamically
-    const disqus_config = function () {
-      this.page.url = window.location.href;
-      this.page.identifier = this.post.id.toString();
-    };
-
     const script = document.createElement("script");
     script.src = "https://fujitime.disqus.com/embed.js";
-    script.setAttribute("data-timestamp", +new Date());
+    script.setAttribute("data-timestamp", + new Date());
     document.head.appendChild(script);
   },
 };
