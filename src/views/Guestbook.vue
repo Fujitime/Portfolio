@@ -1,35 +1,33 @@
 <template>
   <div class="pt-32 mx-5">
-    <h1 class="text-3xl font-bold mb-4">Guestbook <i class="fas fa-pencil-alt"></i></h1>
+    <h1 class="text-3xl font-bold mb-4 ">Guestbook <i class="fas fa-pencil-alt"></i></h1>
     <p class="mb-2">Berikan jejak Anda di guestbook ini. Ceritakan pendapat Anda dalam beberapa kata. <i class="far fa-smile"></i></p>
     <div class="flex justify-end">
       <div v-if="user" class="mb-4">
-        <button @click="signOut" class="bg-red-500 text-white px-4 py-2 mt-2 rounded"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
-      </div>
+        <button @click="confirmSignOut" class="bg-red-500 text-white px-4 py-2 mt-2 rounded"><i class="fas fa-sign-out-alt"></i> Sign Out</button>      </div>
       <div v-else>
         <button @click="signInWithGoogle" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded"><i class="fab fa-google"></i> Sign In with Google</button>
       </div>
     </div>
     <UserProfile v-if="user" :userProfile="userProfile"/>
+    <div class="flex justify-end">
+          <MessageForm v-if="user" @sendMessage="sendMessage" />
+      </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       <div class="">
         <MessageList :messages="messages"/>
       </div>
-      <div class="flex justify-center">
-        <div class="max-w-sm w-full">
-          <MessageForm v-if="user" @sendMessage="sendMessage" />
-        </div>
-      </div>
+  
     </div>
   </div>
 </template>
 
 <script>
 import { db, signInWithGoogle, signOut, auth } from '../firebase/config.js';
-import UserProfile from './guestbook/UserProfile.vue';
-import MessageForm from './guestbook/MessageForm.vue';
-import MessageList from './guestbook/MessageList.vue';
-
+import UserProfile from '../components/guestbook/UserProfile.vue';
+import MessageForm from '../components/guestbook/MessageForm.vue';
+import MessageList from '../components/guestbook/MessageList.vue';
+import Swal from "sweetalert2";
 export default {
   name: 'Guestbook',
   components: {
@@ -43,47 +41,89 @@ export default {
       messages: [],
       user: null,
       userProfile: {},
+      lastVisibleMessage: null,
     };
   },
   mounted() {
-    // Dapatkan daftar pesan saat komponen dimuat
-    this.getMessages();
+  this.loadInitialMessages();
 
-    // Langganan perubahan pada koleksi pesan
-    db.collection('messages').onSnapshot(() => {
-      this.getMessages();
+  db.collection('messages').orderBy('timestamp', 'desc').limit(10).get()
+    .then(querySnapshot => {
+      this.messages = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        name: doc.data().name,
+        text: this.truncateText(doc.data().text, 43),
+        timestamp: doc.data().timestamp.toDate(),
+        editing: false,
+        editedText: doc.data().text,
+      }));
+      const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+      this.lastVisibleMessage = lastVisible;
+    })
+    .catch(error => {
+      console.error(error);
     });
 
-    // Langganan perubahan pada status autentikasi
-    auth.onAuthStateChanged((user) => {
-      this.user = user;
-      if (user) {
-        this.getUserProfile(user.uid);
-      } else {
-        this.userProfile = {};
-      }
-    });
-  },
+  auth.onAuthStateChanged(user => {
+    this.user = user;
+    if (user) {
+      this.getUserProfile(user.uid);
+    } else {
+      this.userProfile = {};
+    }
+  });
+},
+
   methods: {
-    getMessages() {
-      // Dapatkan daftar pesan dari Firestore
-      db.collection('messages')
-        .orderBy('timestamp', 'desc')
-        .get()
-        .then((querySnapshot) => {
-          this.messages = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name,
-            text: this.truncateText(doc.data().text, 43),
-            timestamp: doc.data().timestamp.toDate(), // Tambahkan properti timestamp
-            editing: false,
-            editedText: doc.data().text,
-          }));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+    loadInitialMessages() {
+    db.collection('messages')
+      .orderBy('timestamp', 'desc')
+      .limit(10) // Mengambil 10 pesan pertama
+      .get()
+      .then(querySnapshot => {
+        this.messages = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          name: doc.data().name,
+          text: this.truncateText(doc.data().text, 43),
+          timestamp: doc.data().timestamp.toDate(),
+          editing: false,
+          editedText: doc.data().text,
+        }));
+        const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        this.lastVisibleMessage = lastVisible;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
+
+  loadMoreMessages() {
+  if (!this.lastVisibleMessage) {
+    return;
+  }
+  db.collection('messages')
+    .orderBy('timestamp', 'desc')
+    .startAfter(this.lastVisibleMessage)
+    .limit(10)
+    .get()
+    .then(querySnapshot => {
+      const newMessages = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        name: doc.data().name,
+        text: this.truncateText(doc.data().text, 43),
+        timestamp: doc.data().timestamp.toDate(),
+        editing: false,
+        editedText: doc.data().text,
+      }));
+      this.messages = this.messages.concat(newMessages);
+      const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+      this.lastVisibleMessage = lastVisible;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+},
+
     truncateText(text, maxLength) {
       if (text.length > maxLength) {
         return text.slice(0, maxLength) + '...';
@@ -219,6 +259,21 @@ export default {
           console.error(error);
         });
     },
+    confirmSignOut() {
+      Swal.fire({
+        title: 'Sign Out',
+        text: 'Are you sure you want to sign out?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, sign me out!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.signOut();
+        }
+      });
+    },
     signOut() {
       signOut()
         .then(() => {
@@ -232,9 +287,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&family=Yatra+One&display=swap');
 ul {
   list-style: none;
 }
+.keren{
+  font-family: 'Ubuntu', sans-serif;
+}
+
 </style>
 

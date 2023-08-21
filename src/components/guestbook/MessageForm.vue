@@ -10,7 +10,7 @@
 
 <script>
 import { db, auth } from '@/firebase/config.js';
-
+import Swal from "sweetalert2"; // Import SweetAlert
 export default {
   data() {
     return {
@@ -70,19 +70,26 @@ export default {
               const userName = user.displayName || 'Anonymous';
 
               db.collection('messages')
-                .add({
-                  name: userName,
-                  text: this.newMessage,
-                  timestamp: new Date(),
-                })
-                .then(() => {
-                  this.newMessage = '';
-                  this.updateLastSentTimestamp(userId, today);
-                  setTimeout(() => {
-                    this.isSending = false;
-                    this.isButtonDisabled = false;
-                  }, 5000); 
-                })
+              .add({
+                name: userName,
+                text: this.newMessage,
+                timestamp: new Date(),
+              })
+              .then(() => {
+                this.newMessage = '';
+                this.updateLastSentTimestamp(userId, today);
+                Swal.fire({ // Show SweetAlert on success
+                  title: 'Message Sent',
+                  text: 'Thank you for sending your message!',
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK',
+                });
+                setTimeout(() => {
+                  this.isSending = false;
+                  this.isButtonDisabled = false;
+                }, 5000);
+              })
                 .catch((error) => {
                   console.error(error);
                   this.error = 'Failed to send message. Please try again.';

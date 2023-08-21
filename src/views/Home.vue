@@ -43,8 +43,8 @@
   </div>
 </template>
 <script>
-import AboutMe from "./About.vue";
-import ContactMe from "./Contact.vue";
+import AboutMe from "../components/About.vue";
+import ContactMe from "../components/Contact.vue";
 
 export default {
   components: {
