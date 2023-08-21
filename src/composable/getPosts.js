@@ -1,7 +1,10 @@
 import { ref } from "vue";
 import { projectFirestore } from "@/firebase/config";
+import { useSlugify } from "@/composable/slugify"; // Import the useSlugify composable
 
-const getPosts = (filterBy) => {
+export const getPosts = (filterBy) => {
+  const { customSlugify } = useSlugify(); // Use the customSlugify function
+
   const posts = ref([]);
   const error = ref(null);
 
@@ -23,9 +26,12 @@ const getPosts = (filterBy) => {
       }
 
       const docs = res.docs.map((doc) => {
+        const data = doc.data();
+        const slug = customSlugify(data.title); // Generate slug from the title
         return {
-          ...doc.data(),
+          ...data,
           id: doc.id,
+          slug: slug, // Assign the slug to the document
         };
       });
 
