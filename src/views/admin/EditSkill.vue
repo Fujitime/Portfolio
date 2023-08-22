@@ -48,6 +48,7 @@
   </template>
 <script>
 import { projectFirestore } from "@/firebase/config";
+;
 import Forbidden from "@/components/Forbidden.vue";
 import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";

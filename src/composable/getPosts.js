@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { projectFirestore } from "@/firebase/config";
+;
 import { useSlugify } from "@/composable/slugify"; // Import the useSlugify composable
 
 export const getPosts = (filterBy) => {

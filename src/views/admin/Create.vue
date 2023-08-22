@@ -78,6 +78,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Editor from "@tinymce/tinymce-vue";
 import { projectFirestore } from "@/firebase/config";
+;
 import { useAuth } from "@/composable/useAuth";
 import Forbidden from "@/components/Forbidden.vue";
 import Swal from 'sweetalert2';

@@ -89,6 +89,7 @@
 import { ref } from 'vue'; // Import the ref function from the Vue Composition API
 import { useAuth } from "@/composable/useAuth";
 import { projectFirestore } from "@/firebase/config";
+;
 import Loading from "@/components/Loading.vue";
 import Swal from "sweetalert2";
 

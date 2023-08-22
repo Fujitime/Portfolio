@@ -52,6 +52,7 @@
 <script>
 import { computed } from "vue";
 import { projectFirestore } from "@/firebase/config";
+;
 import Swal from "sweetalert2";
 import { useAuth } from "@/composable/useAuth"; // Import useAuth module
 
