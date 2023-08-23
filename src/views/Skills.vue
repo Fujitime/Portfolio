@@ -1,7 +1,6 @@
 <template>
   <div class="bg-gray-900 min-h-screen flex items-center justify-center pt-32">
     <div class="w-full p-8" v-if="!loading">
-      <h2 class="text-3xl font-bold mb-8 text-white">My Skills</h2>
       <router-link
         v-if="isAdmin"
         :to="{ name: 'CreateSkill' }" 
@@ -16,7 +15,7 @@
           :key="skill.id"
           class="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center"
         >
-          <img :src="skill.image" class="w-20 h-20 object-contain mb-4" />
+          <img :src="skill.image" class="w-20 h-20 object-contain mb-4" :alt="skill.image" />
           <h3 class="text-lg font-bold text-white">{{ skill.title }}</h3>
           <p class="text-gray-400 mt-2 text-center">{{ skill.description }}</p>
           <div class="flex justify-between mt-2" v-if="isAdmin">
@@ -41,7 +40,7 @@
     :key="skill.id"
     class="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center"
   >
-    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" />
+    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" :alt="skill.image" />
     <h3 class="text-lg font-bold text-white">{{ skill.title }}</h3>
     <p class="text-gray-400 mt-2 text-center">{{ skill.description }}</p>
     <div class="flex justify-between mt-2" v-if="isAdmin">
@@ -67,7 +66,7 @@
     :key="skill.id"
     class="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center"
   >
-    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" />
+    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" :alt="skill.image"  />
     <h3 class="text-lg font-bold text-white">{{ skill.title }}</h3>
     <p class="text-gray-400 mt-2 text-center">{{ skill.description }}</p>
     <div class="flex justify-between mt-2" v-if="isAdmin">
@@ -93,7 +92,7 @@
     :key="skill.id"
     class="bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center"
   >
-    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" />
+    <img :src="skill.image" class="w-20 h-20 object-contain mb-4" :alt="skill.image"  />
     <h3 class="text-lg font-bold text-white">{{ skill.title }}</h3>
     <p class="text-gray-400 mt-2 text-center">{{ skill.description }}</p>
     <div class="flex justify-between mt-2" v-if="isAdmin">
@@ -124,6 +123,7 @@
 
 <script>
 import { projectFirestore } from "@/firebase/config";
+;
 import Loading from "@/components/Loading.vue";
 import Swal from "sweetalert2";
 import { useAuth } from "@/composable/useAuth";

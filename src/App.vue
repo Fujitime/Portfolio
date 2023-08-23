@@ -3,8 +3,8 @@
     <Navbar />
     <div class="flex-grow">
       <router-view />
-      <Footer />
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -17,11 +17,8 @@ export default {
     Navbar,
     Footer,
   },
-  beforeMount() {
-            console.log('base url: ' + process.env.API_BASE_URL);
-            console.log('base url: ' + process.env.VUE_APP_TITLE);
-            console.log('base url: ' + process.env.VUE_MY_VAR);
-        }
+  
+  
 };
 </script>
 

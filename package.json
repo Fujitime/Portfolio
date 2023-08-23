@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "run-build": " vue-cli-service serve -s dist",
     "build": "vue-cli-service build",
+    "dev": "vue-cli-service build &&  vue-cli-service serve -s dist",
     "watch": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css -w"
   },
   "dependencies": {
@@ -13,7 +15,7 @@
     "aos": "^2.3.4",
     "core-js": "^3.8.3",
     "dotenv": "^16.3.1",
-    "firebase": "8.3.1",
+    "firebase": "^10.2.0",
     "firestorm": "^0.1.5",
     "popper.js": "^1.16.1",
     "slugify": "^1.6.6",
@@ -22,7 +24,8 @@
     "tinymce": "^6.6.1",
     "vue": "^3.2.13",
     "vue-disqus": "^4.0.1",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue-writer": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

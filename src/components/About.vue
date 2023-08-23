@@ -24,21 +24,18 @@
             Also known as Fuji || Waltahh
           </p>
           <p class="text-sm lg:text-lg mb-4">
-            Saat ini, Saya sedang menempuh pendidikan di SMKN 01 Cisarua, Bandung
-            Barat. Saya antusias dalam mengasah keterampilan saya di bidang yang
-            saya pilih. Sebagai seorang developer, Saya memiliki minat dalam
-            Software Engineering. Saya memiliki pemahaman yang baik tentang
-            konsep-konsep dasar dan berusaha untuk menerapkannya dengan sebaik
-            mungkin dalam berbagai situasi.
+            I'm web developer (front-end focused),
+            My favorite programming language is javaScript(NodeJS),
+            and I'm currently learning 
+            TypeScript,
+            <router-link
+            :to="{ name: 'Skills' }"
+            class="text-sky-500 underline hover:text-sky-500 "
+            > etc
+              </router-link>  
           </p>
-          <p class="text-sm lg:text-lg mb-4">
-            Saya senang mengikuti perkembangan teknologi terbaru dan memiliki
-            keahlian dalam merancang dan mengembangkan aplikasi web yang keren dan
-            user-friendly. Saya terus meningkatkan keterampilan saya untuk
-            mencapai hasil yang optimal.
-          </p>
-  
-          <p class="text-sm lg:text-lg italic mb-10">
+
+          <p class="text-sm lg:text-lg  mb-10">
             I have a dream to collaborate with companies or startups. Even though
             I am a beginner, I am very enthusiastic about it. :&#41;
           </p>
@@ -49,6 +46,7 @@
           >
             Download CV
           </a>
+          
         </div>
       </div>
     </div>

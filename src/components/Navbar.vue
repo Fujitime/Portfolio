@@ -30,7 +30,7 @@
                   class="no-underline text-gray-200 hover:text-gray-400 font-semibold py-1"
                 >
                   <i class="fa fa-cogs mr-2"></i>
-                  Skills
+                  Tools
                 </router-link>
               </li>
 
@@ -147,7 +147,7 @@
                   :to="{ name: 'Skills' }"
                   class="flex flex-1 text-md text-gray-700 hover:bg-gray-200 hover:text-sky-500 font-semibold px-4 py-2"
                 >
-                  <i class="fa fa-cogs mr-2"></i> Skills
+                  <i class="fa fa-cogs mr-2"></i> Tools
                 </router-link>
               </li>
 
@@ -157,7 +157,7 @@
                   class="flex flex-1 text-md text-gray-700 hover:bg-gray-200 hover:text-sky-500 font-semibold px-4 py-2"
                 >
                   <i class="fa fa-newspaper"></i>
-                  <span class="pl-2 pb-1"> Blogs</span>
+                  <span class="pl-2 pb-1"> Posts</span>
                 </router-link>
               </li>
               <li class="flex items-center">

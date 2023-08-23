@@ -18,9 +18,20 @@
         >
           I'm
           <span
-            class="typing-effect inline-block underline text-sky-500"
+            class="typing-effect inline-block  text-sky-500"
             ref="typingElement"
-          ></span>
+          >
+          <VueWriter
+              :array="textArray"
+              :iterations="0"
+              :typeSpeed="70"
+              :eraseSpeed="50"
+              :delay="1000"
+              :intervals="200"
+              :start="2000"
+              :caret="'custom-cursor'"
+            />
+        </span>
         </h3>
 
         <a
@@ -32,7 +43,7 @@
           <div class="flex items-center justify-center">
             <i class="fas fa-envelope-open-text text-white text-xl mr-2"></i>
             <span class="text-white font-semibold"
-              >Contact <span class="text-blue-500"> Me! </span>
+              >Hire <span class="text-blue-500"> Me! </span>
             </span>
           </div>
         </a>
@@ -42,22 +53,25 @@
     <ContactMe id="contacts" />
   </div>
 </template>
+
 <script>
+import VueWriter from "vue-writer"; // Import the vue-writer component
 import AboutMe from "../components/About.vue";
 import ContactMe from "../components/Contact.vue";
 
 export default {
   components: {
+    VueWriter, // Register the VueWriter component
     AboutMe,
     ContactMe,
   },
   data() {
     return {
       imageLoaded: false,
+      textArray: ["Web Developer", "Front-end Developer", "Software Engineer"],
     };
   },
   mounted() {
-    this.setupTypingEffect();
     this.preloadImage();
   },
   methods: {
@@ -69,50 +83,11 @@ export default {
         this.imageLoaded = true;
       };
     },
-    setupTypingEffect() {
-      const typingElement = this.$refs.typingElement;
-      const textArray = ["Web Developer", "Coder", "Software Engineer"];
-      let textIndex = 0;
-      let charIndex = 0;
-      let timer;
-
-      const type = () => {
-        if (charIndex <= textArray[textIndex].length) {
-          typingElement.innerText = textArray[textIndex].substring(
-            0,
-            charIndex
-          );
-          charIndex++;
-          timer = setTimeout(type, 100);
-        } else {
-          setTimeout(erase, 1000);
-        }
-      };
-
-      const erase = () => {
-        if (charIndex >= 0) {
-          typingElement.innerText = textArray[textIndex].substring(
-            0,
-            charIndex
-          );
-          charIndex--;
-          timer = setTimeout(erase, 50);
-        } else {
-          textIndex++;
-          if (textIndex >= textArray.length) {
-            textIndex = 0;
-          }
-          setTimeout(type, 500);
-        }
-      };
-
-      type();
-    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .background-image {
   position: relative;
   background-image: linear-gradient(
@@ -139,5 +114,4 @@ export default {
     rgba(0, 0, 0, 0.2) 100%
   );
   z-index: -1;
-}
-</style>
+}</style>
