@@ -104,7 +104,7 @@
 import { ref, onMounted } from "vue";
 import Swal from 'sweetalert2';
 import Loading from "@/components/Loading.vue";
-import { getPost } from "@/composable/getPost";
+import { getPost } from "@/composables/getPost";
 import Disqus from "@/components/Disqus.vue";
 import { useRoute } from "vue-router";
 

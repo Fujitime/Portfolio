@@ -12,7 +12,7 @@ import CreateProject from "@/views/admin/CreateProject.vue"; // Import CreatePro
 import CreateSkill from "@/views/admin/CreateSkill.vue"; // Import CreateSkill component
 import EditSkill from "@/views/admin/EditSkill.vue"; // Import EditSkill component
 import Unauthorized from "@/views/Unauthorized.vue";
-import { useAuth } from "@/composable/useAuth";
+import { useAuth } from "@/composables/useAuth";
 
 const { isAdmin, isAuthenticated } = useAuth();
 

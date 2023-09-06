@@ -36,6 +36,7 @@ export default {
       currentPage: 1,
       itemsPerPage: 10,
       highlightedMessage: null,
+      
     };
   },
   computed: {

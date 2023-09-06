@@ -1,57 +1,64 @@
 [[redirects]]
-  from = "/posts"
-  to = "/index.html"
-  status = 200
+  from = "/skill/create"
+  to = "/unauthorized"
+  status = 302
+  condition = '''
+    !(window.isAdmin && window.isAdmin.value)
+  '''
 
 [[redirects]]
-  from = "/skills"
-  to = "/index.html"
-  status = 200
+  from = "/skill/edit/:id"
+  to = "/unauthorized"
+  status = 302
+  condition = '''
+    !(window.isAdmin && window.isAdmin.value)
+  '''
 
 [[redirects]]
-  from = "/projects"
-  to = "/index.html"
-  status = 200
+  from = "/posts/create"
+  to = "/unauthorized"
+  status = 302
+  condition = '''
+    !(window.isAdmin && window.isAdmin.value)
+  '''
+
+[[redirects]]
+  from = "/posts/edit/:id"
+  to = "/unauthorized"
+  status = 302
+  condition = '''
+    !(window.isAdmin && window.isAdmin.value)
+  '''
+
+[[redirects]]
+  from = "/project/create"
+  to = "/unauthorized"
+  status = 302
+  condition = '''
+    !(window.isAdmin && window.isAdmin.value)
+  '''
 
 [[redirects]]
   from = "/guestbook"
-  to = "/index.html"
+  to = "/guestbook"
   status = 200
 
 [[redirects]]
-  from = "/posts/:id"
-  to = "/index.html"
+  from = "/posts/:slug"
+  to = "/posts/:slug"
   status = 200
 
 [[redirects]]
   from = "/tag/:tag"
-  to = "/index.html"
+  to = "/tag/:tag"
   status = 200
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[[redirects]]
+  from = "/unauthorized"
+  to = "/unauthorized"
+  status = 200
 
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Content-Type = "application/javascript"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Content-Type = "text/css"
-
-[[headers]]
-  for = "/img/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000"
-
-[[headers]]
-  for = "/fonts/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
