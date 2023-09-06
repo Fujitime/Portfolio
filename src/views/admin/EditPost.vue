@@ -4,7 +4,7 @@
       <div class="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-md">
         <div class="pb-10">
           <label class="block mb-1 font-semibold text-gray-300" for="title">Title</label>
-          <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Title post" v-model="post.title" required />
+          <input required type="text" id="title" name="title" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Title post" v-model="post.title" />
         </div>
 
         <editor
@@ -36,23 +36,23 @@
   </div>
         <div class="my-6">
         <label class="block mb-1 font-semibold text-gray-300" for="author">Author</label>
-        <input type="text" id="author" name="author" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Author name" v-model="post.author" />
+        <input type="text"  id="author" name="author" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Author name" v-model="post.author" />
       </div>
 
         <div class="my-6">
           <label class="block mb-1 font-semibold text-gray-300" for="tag">Tags</label>
-          <input type="text" id="tag" name="tag" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Input tags" v-model="tag" @keydown.enter.prevent="handleKeydown" />
+          <input type="text" id="tag" required name="tag" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Input tags" v-model="tag" @keydown.enter.prevent="handleKeydown" />
           <span v-for="tag in post.tags" :key="tag" class="inline-block px-2 py-1 mt-2 bg-gray-600 rounded-lg"># {{ tag }}</span>
         </div>
 
         <div class="my-6">
           <label class="block mb-1 font-semibold text-gray-300" for="metaDescription">Meta Description</label>
-          <input type="text" id="metaDescription" name="metaDescription" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Meta description" v-model="post.metaDescription" />
+          <input type="text" required id="metaDescription" name="metaDescription" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Meta description" v-model="post.metaDescription" />
         </div>
 
         <div class="my-6">
           <label class="block mb-1 font-semibold text-gray-300" for="thumbnailUrl">Thumbnail URL</label>
-          <input type="text" id="thumbnailUrl" name="thumbnailUrl" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Thumbnail URL" v-model="post.thumbnail" />
+          <input type="text" required id="thumbnailUrl" name="thumbnailUrl" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Thumbnail URL" v-model="post.thumbnail" />
         </div>
 
         <button type="submit" class="w-full py-2 bg-blue-500 rounded-lg hover:bg-blue-600" @click="handleUpdate">Update</button>
@@ -63,13 +63,13 @@
     </div>
   </div>
 </template>
+
 <script>
 import { ref, onMounted } from "vue";
 import Editor from "@tinymce/tinymce-vue";
 import { useRouter } from "vue-router";
 import { projectFirestore } from "@/firebase/config";
-;
-import { useAuth } from "@/composable/useAuth";
+import { useAuth } from "@/composables/useAuth";
 import Forbidden from "@/components/Forbidden.vue";
 import Swal from "sweetalert2";
 import slugify from "slugify";
@@ -143,45 +143,48 @@ export default {
     };
 
     const handleUpdate = async () => {
-      if (!isAdmin.value || !post.value) {
-        return;
-      }
+  if (!isAdmin.value || !post.value) {
+    return;
+  }
 
-      // Update createdAt time when editing
-      const updatedAt = new Date();
+  // Update createdAt time when editing
+  const updatedAt = new Date();
 
-      let slug = post.value.slug;
-      if (!slug) {
-        slug = slugify(post.value.title, { lower: true });
-      }
+  const cleanedTitle = post.value.title.replace(/[^\w\s]/gi, '');
+  const modifiedTitle = cleanedTitle.replace(/\s+/g, '-');
+  let slug = slugify(modifiedTitle, { lower: true });
+  if (!slug) {
+    slug = slugify(post.value.title, { lower: true });
+  }
 
-      const slugExists = await projectFirestore
-        .collection("posts")
-        .where("slug", "==", slug)
-        .get()
-        .then((querySnapshot) => !querySnapshot.empty);
+  const slugExists = await projectFirestore
+    .collection("posts")
+    .where("slug", "==", slug)
+    .get()
+    .then((querySnapshot) => !querySnapshot.empty);
 
-      if (slugExists) {
-        slug = `${slug}-${Date.now()}`;
-      }
+  if (slugExists) {
+    slug = `${slug}`;
+  }
 
-      try {
-        await projectFirestore.collection("posts").doc(postId.value).update({
-          ...post.value,
-          slug: slug,
-          createdAt: updatedAt, // Update createdAt to updatedAt
-        });
-        await Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: "Post updated successfully",
-        });
+  try {
+    await projectFirestore.collection("posts").doc(postId.value).update({
+      ...post.value,
+      slug: slug,
+      createdAt: updatedAt, // Update createdAt to updatedAt
+    });
+    await Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Post updated successfully",
+    });
 
-        router.push({ name: "Blogposts" });
-      } catch (error) {
-        console.error("Error updating document:", error);
-      }
-    };
+    router.push({ name: "Blogposts" });
+  } catch (error) {
+    console.error("Error updating document:", error);
+  }
+};
+
 
     return {
       isAdmin,

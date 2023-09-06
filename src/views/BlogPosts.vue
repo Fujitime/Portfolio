@@ -17,7 +17,7 @@
 <script>
 import PostList from "../components/posts/PostList.vue";
 import Loading from "../components/Loading.vue";
-import getPosts from "../composable/getPosts.js";
+import getPosts from "../composables/getPosts.js";
 
 export default {
   name: "Blogposts",

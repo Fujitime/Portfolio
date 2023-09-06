@@ -48,18 +48,20 @@
     </div>
   </div>
 </template>
-
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { projectFirestore } from "@/firebase/config";
-;
 import Swal from "sweetalert2";
-import { useAuth } from "@/composable/useAuth"; // Import useAuth module
+import { useAuth } from "@/composables/useAuth";
+import { useRouter } from "vue-router";
 
 export default {
   props: ["post"],
   setup(props) {
-    const { isAdmin } = useAuth(); // Get isAdmin status from useAuth
+    const { isAdmin } = useAuth();
+    const router = useRouter();
+
+    const postId = ref(props.post.id);
 
     const formattedCreatedAt = computed(() => {
       if (props.post.createdAt && props.post.createdAt.seconds) {
@@ -105,35 +107,35 @@ export default {
     });
 
     const confirmDelete = async () => {
-      if (isAdmin.value && post.value) {
-        const result = await Swal.fire({
-          title: "Delete Post",
-          text: "Are you sure you want to delete this post?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d9534f",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Delete",
-          cancelButtonText: "Cancel",
+  if (isAdmin.value && postId.value) {
+    const result = await Swal.fire({
+      title: "Delete Post",
+      text: "Are you sure you want to delete this post?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d9534f",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await projectFirestore.collection("posts").doc(postId.value).delete();
+        await Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Post deleted successfully',
         });
 
-        if (result.isConfirmed) {
-          try {
-            await projectFirestore.collection("posts").doc(postId.value).delete();
-            await Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'Post deleted successfully',
-            });
-
-            router.push({ name: "Blogposts" });
-          } catch (error) {
-            console.error("Error deleting post:", error);
-          }
-        }
+        // Refresh halaman setelah berhasil menghapus
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting post:", error);
       }
-    };
-
+    }
+  }
+};
 
     return {
       formattedCreatedAt,
@@ -144,4 +146,3 @@ export default {
   },
 };
 </script>
-

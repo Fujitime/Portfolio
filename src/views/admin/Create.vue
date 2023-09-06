@@ -5,7 +5,7 @@
         <div>
           <div class="pb-10">
             <label class="block mb-1 font-semibold text-gray-300" for="title">Title</label>
-            <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Title post" v-model="title" required />
+            <input required type="text" id="title" name="title" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Title post" v-model="title" />
           </div>
           
           <div class="mb-6">
@@ -33,8 +33,8 @@
 
           
           <div class="mb-6">
-            <label class="block mb-1 font-semibold text-gray-300" for="thumbnailUrl">Thumbnail URL</label>
-            <input type="text" id="thumbnailUrl" name="thumbnailUrl" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Thumbnail URL" v-model="thumbnailUrl" />
+            <label class="block mb-1 font-semibold text-gray-300" for="thumbnailUrl" >Thumbnail URL</label>
+            <input type="text" id="thumbnailUrl" name="thumbnailUrl" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Thumbnail URL" v-model="thumbnailUrl" />
           </div>
         </div>
         
@@ -55,13 +55,13 @@
           
           <div class="mb-6">
             <label class="block mb-1 font-semibold text-gray-300" for="tag">Tags</label>
-            <input type="text" id="tag" name="tag" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Input tags" v-model="tag" @keydown.enter.prevent="handleKeydown" />
+            <input type="text" required id="tag" name="tag" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Input tags" v-model="tag" @keydown.enter.prevent="handleKeydown" />
             <span v-for="tag in tags" :key="tag" class="inline-block px-2 py-1 mt-2 bg-gray-600 rounded-lg"># {{ tag }}</span>
           </div>
           
           <div class="mb-6">
             <label class="block mb-1 font-semibold text-gray-300" for="metaDescription">Meta Description</label>
-            <input type="text" id="metaDescription" name="metaDescription" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Meta description" v-model="metaDescription" />
+            <input type="text" required id="metaDescription" name="metaDescription" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-700" placeholder="Meta description" v-model="metaDescription" />
           </div>
           
           <button type="submit" class="w-full py-2 bg-blue-500 rounded-lg hover:bg-blue-600" @click="handleSubmit">Kirim</button>
@@ -79,7 +79,7 @@ import { useRouter } from "vue-router";
 import Editor from "@tinymce/tinymce-vue";
 import { projectFirestore } from "@/firebase/config";
 ;
-import { useAuth } from "@/composable/useAuth";
+import { useAuth } from "@/composables/useAuth";
 import Forbidden from "@/components/Forbidden.vue";
 import Swal from 'sweetalert2';
 import slugify from 'slugify';
@@ -112,7 +112,11 @@ export default {
 
     const handleSubmit = async () => {
       if (isAdmin.value) {
-        const slug = slugify(title.value, { lower: true }); 
+        
+      const cleanedTitle = title.value.replace(/[^\w\s]/gi, '');
+      const modifiedTitle = cleanedTitle.replace(/\s+/g, '-');
+      const slug = slugify(modifiedTitle, { lower: true });
+
         const post = {
           title: title.value,
           body: body.value,

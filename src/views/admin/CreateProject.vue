@@ -53,7 +53,7 @@
 <script>
 import Forbidden from "@/components/Forbidden.vue";
 import { ref, onMounted } from "vue";
-import { useAuth } from "@/composable/useAuth";
+import { useAuth } from "@/composables/useAuth";
 import { projectFirestore } from "@/firebase/config.js";
 import Swal from "sweetalert2";
 import LanguageSelector from "@/components/LanguageSelector.vue";

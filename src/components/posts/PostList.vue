@@ -24,7 +24,7 @@
 
 <script>
 import PostSingle from "./PostSingle";
-import { useAuth } from "@/composable/useAuth"; // Import useAuth module
+import { useAuth } from "@/composables/useAuth"; // Import useAuth module
 
 export default {
   props: ["posts"],

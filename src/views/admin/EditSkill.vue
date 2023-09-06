@@ -53,7 +53,7 @@ import Forbidden from "@/components/Forbidden.vue";
 import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { useAuth } from "@/composable/useAuth";
+import { useAuth } from "@/composables/useAuth";
 
 export default {
   name: "EditSkill",
