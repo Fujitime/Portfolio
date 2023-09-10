@@ -25,7 +25,6 @@
     "tinymce": "^6.6.1",
     "vue": "^3.2.13",
     "vue-disqus": "^4.0.1",
-    "vue-pdf": "^4.3.0",
     "vue-router": "^4.0.3",
     "vue-writer": "^1.2.0"
   },

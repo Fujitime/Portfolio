@@ -24,7 +24,7 @@
                   🏠 Home
                 </router-link>
               </li>
-              <li>
+              <!-- <li>
                 <router-link
                   :to="{ name: 'Skills' }"
                   class="no-underline text-gray-200 hover:text-gray-400 font-semibold py-1"
@@ -32,7 +32,7 @@
                   <i class="fa fa-cogs mr-2"></i>
                   Tools
                 </router-link>
-              </li>
+              </li> -->
 
               <li>
                 <router-link
@@ -142,14 +142,14 @@
                 </router-link>
               </li>
 
-              <li class="flex items-center">
+              <!-- <li class="flex items-center">
                 <router-link
                   :to="{ name: 'Skills' }"
                   class="flex flex-1 text-md text-gray-700 hover:bg-gray-200 hover:text-sky-500 font-semibold px-4 py-2"
                 >
                   <i class="fa fa-cogs mr-2"></i> Tools
                 </router-link>
-              </li>
+              </li> -->
 
               <li class="flex items-center">
                 <router-link

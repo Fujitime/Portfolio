@@ -18,7 +18,7 @@
         >
           I'm
           <span
-            class="typing-effect inline-block  text-sky-500"
+            class="typing-effect inline-block"
             ref="typingElement"
           >
           <VueWriter

@@ -15,28 +15,20 @@
           </div>
   
           <div class="mb-4">
-            <label class="block text-white font-semibold mb-2">Learning</label>
-            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-              <input type="checkbox" id="learning" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" v-model="learning">
-              <label for="learning" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-            </div>
-          </div>
-  
-          <div class="mb-4">
-            <label class="block text-white font-semibold mb-2">Database</label>
-            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-              <input type="checkbox" id="database" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" v-model="database">
-              <label for="database" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-            </div>
-          </div>
-  
-          <div class="mb-4">
-            <label class="block text-white font-semibold mb-2">Tools</label>
-            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-              <input type="checkbox" id="tools" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" v-model="tools">
-              <label for="tools" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-            </div>
-          </div>
+          <label class="block text-white font-semibold mb-2">Learning</label>
+          <input type="checkbox" id="learning" class="form-checkbox h-6 w-6 text-blue-600" v-model="learning">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white font-semibold mb-2">Database</label>
+          <input type="checkbox" id="database" class="form-checkbox h-6 w-6 text-blue-600" v-model="database">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white font-semibold mb-2">Tools</label>
+          <input type="checkbox" id="tools" class="form-checkbox h-6 w-6 text-blue-600" v-model="tools">
+        </div>
+
   
           <div class="mb-4">
             <label for="description" class="block text-white font-semibold mb-2">Description</label>
