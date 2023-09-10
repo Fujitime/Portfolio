@@ -6,7 +6,7 @@
 export default {};
 </script>
 
-<!-- <style>
+<style>
 .spin {
   display: block;
   width: 40px;
@@ -22,4 +22,4 @@ export default {};
     transform: rotateZ(360deg);
   }
 }
-</style> -->
+</style>

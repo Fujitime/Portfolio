@@ -23,25 +23,72 @@ export default {
 </script>
 
 <style>
+
 body {
   background-color: #1f2937;
 }
-html{
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer and Edge */
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #111827; /* Dark background color */
 }
 
-html::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #1E40AF; /* Blue thumb color */
+  border-radius: 10px; /* Rounded thumb */
+  border: 3px solid #111827; /* Dark border */
+  transition: background-color 0.3s ease, border 0.3s ease; /* Smooth transition */
 }
 
-.no-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer and Edge */
+/* Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffcc00; /* Yellow thumb color on hover */
+  border: 3px solid #1E40AF; /* Blue border on hover */
 }
 
-.no-scrollbar::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+/* Scrollbar Track on Hover */
+::-webkit-scrollbar:hover {
+  width: 16px; /* Wider scrollbar on hover */
+  background-color: #0E253E; /* Darker background color on hover */
 }
+
+/* Scrollbar Track on Active */
+::-webkit-scrollbar:active {
+  background-color: #111827; /* Dark background color when scrolling */
+}
+
+/* Scrollbar Corner */
+::-webkit-scrollbar-corner {
+  background-color: #111827; /* Dark corner color */
+}
+
+/* Scrollbar Track on Dragging */
+::-webkit-scrollbar-thumb:active {
+  background-color: #ffcc00; /* Yellow thumb color when dragging */
+  border: 3px solid #ffcc00; /* Yellow border when dragging */
+}
+
+/* Scrollbar Animation */
+@keyframes scroll-pulse {
+  0% {
+    background-color: #1E40AF;
+    border: 3px solid #111827;
+  }
+  50% {
+    background-color: #ffcc00;
+    border: 3px solid #ffcc00;
+  }
+  100% {
+    background-color: #1E40AF;
+    border: 3px solid #111827;
+  }
+}
+
+/* Apply animation to scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  animation: scroll-pulse 3s infinite;
+}
+
 
 </style>

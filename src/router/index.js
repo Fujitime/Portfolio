@@ -8,9 +8,9 @@ import Tag from "../views/posts/Tag.vue";
 import BlogPosts from "@/views/BlogPosts.vue";
 import Projects from "@/views/Projects.vue";
 import EditPost from "@/views/admin/EditPost.vue";
-import CreateProject from "@/views/admin/CreateProject.vue"; // Import CreateProject component
-import CreateSkill from "@/views/admin/CreateSkill.vue"; // Import CreateSkill component
-import EditSkill from "@/views/admin/EditSkill.vue"; // Import EditSkill component
+import CreateProject from "@/views/admin/CreateProject.vue";
+import CreateSkill from "@/views/admin/CreateSkill.vue";
+import EditSkill from "@/views/admin/EditSkill.vue";
 import Unauthorized from "@/views/Unauthorized.vue";
 import { useAuth } from "@/composables/useAuth";
 
@@ -22,7 +22,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Home",
+      title: "Fujitime | Home",
     },
   },
   {
@@ -30,7 +30,7 @@ const routes = [
     name: "Blogposts",
     component: BlogPosts,
     meta: {
-      title: "Posts",
+      title: "Fujitime | Posts",
     },
   },
   {
@@ -38,7 +38,7 @@ const routes = [
     name: "Skills",
     component: Skills,
     meta: {
-      title: "Skills",
+      title: "Fujitime | Skills",
     },
   },
   {
@@ -46,7 +46,7 @@ const routes = [
     name: "CreateSkill",
     component: CreateSkill,
     meta: {
-      title: "Create Skill",
+      title: "Fujitime | Create Skill",
       httpStatus: 403,
       requiresAdmin: true,
     },
@@ -64,7 +64,7 @@ const routes = [
     component: EditSkill,
     props: true,
     meta: {
-      title: "Edit Skill",
+      title: "Fujitime | Edit Skill",
       httpStatus: 403,
       requiresAdmin: true,
     },
@@ -81,7 +81,7 @@ const routes = [
     name: "CreatePost",
     component: CreatePost,
     meta: {
-      title: "Create Post",
+      title: "Fujitime | Create Post",
       httpStatus: 403,
       requiresAdmin: true,
     },
@@ -98,7 +98,7 @@ const routes = [
     name: "EditPost",
     component: EditPost,
     meta: {
-      title: "Edit Post",
+      title: "Fujitime | Edit Post",
       httpStatus: 403,
       requiresAdmin: true,
     },
@@ -115,7 +115,7 @@ const routes = [
     name: "Projects",
     component: Projects,
     meta: {
-      title: "Projects",
+      title: "Fujitime | Projects",
     },
   },
   {
@@ -123,7 +123,7 @@ const routes = [
     name: "CreateProject",
     component: CreateProject,
     meta: {
-      title: "Create Project",
+      title: "Fujitime | Create Project",
       httpStatus: 403,
       requiresAdmin: true,
     },
@@ -140,21 +140,22 @@ const routes = [
     name: "Guestbook",
     component: Guestbook,
     meta: {
-      title: "Guestbook",
+      title: "Fujitime | Guestbook",
     },
-  },{
-  path: "/posts/:slug",
-  name: "ShowPost",
-  component: ShowPost,
-  props: true,
-  beforeEnter: (to, from, next) => {
-    const slug = to.params.slug.toUpperCase(); // Ambil slug dari URL
-    const title = slug.replace(/-/g, ' '); // Mengganti tanda hubung dengan spasi
-    document.title = title; // Atur judul halaman
-    next();
   },
+  {
+    path: "/posts/:slug",
+    name: "ShowPost",
+    component: ShowPost,
+    props: true,
+    beforeEnter: (to, from, next) => {
+      const slug = to.params.slug.toUpperCase();
+      const title = slug.replace(/-/g, ' ');
+      document.title = title;
+      next();
+    },
     meta: {
-      title: "", // Biarkan kosong, karena judul akan diatur dalam beforeEnter
+      title: "", // Leave it empty for this route
     },
   },
   {
@@ -162,7 +163,7 @@ const routes = [
     name: "Tag",
     component: Tag,
     meta: {
-      title: "Posts with Tag",
+      title: "Fujitime | Posts with Tag",
     },
   },
   {
@@ -170,7 +171,7 @@ const routes = [
     name: "Unauthorized",
     component: Unauthorized,
     meta: {
-      title: "Access Denied",
+      title: "Fujitime | Access Denied",
     },
   },
 ];
