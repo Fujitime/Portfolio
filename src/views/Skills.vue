@@ -123,7 +123,6 @@
 
 <script>
 import { projectFirestore } from "@/firebase/config";
-;
 import Loading from "@/components/Loading.vue";
 import Swal from "sweetalert2";
 import { useAuth } from "@/composables/useAuth";

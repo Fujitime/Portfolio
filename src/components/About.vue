@@ -23,21 +23,23 @@
           <p class="text-slate-500 text-sm lg:text-lg mb-4">
             Also known as Fuji || Waltahh
           </p>
-          <p class="text-sm lg:text-lg mb-4">
-            I'm web developer (front-end focused),
-            My favorite programming language is javaScript(NodeJS),
-            and I'm currently learning 
-            TypeScript,
-            <router-link
-            :to="{ name: 'Skills' }"
-            class="text-sky-500 underline hover:text-sky-500 "
-            > etc
-              </router-link>  
-          </p>
+
+
+ <p class="text-sm lg:text-lg mb-4">
+    I'm web developer (front-end focused),
+    My favorite programming language is javaScript(NodeJS),
+    and I'm currently learning
+    <router-link
+      :to="{ name: 'Skills' }"
+      class="text-sky-500 underline hover:text-sky-500"
+    >
+      {{ learningSkills }}
+      <span v-if="showSeeMore" class="text-xs">(see more)</span>
+    </router-link>
+  </p>
 
           <p class="text-sm lg:text-lg  mb-10">
-            I have a dream to collaborate with companies or startups. Even though
-            I am a beginner, I am very enthusiastic about it. :&#41;
+            I have a dream to collaborate with companies or startups, and my enthusiasm for it drives me to keep learning:&#41;
           </p>
           <a
             v-if="isMobile"
@@ -51,24 +53,60 @@
       </div>
     </div>
   </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        isMobile: false,
-      };
+
+<script>
+import { ref, onMounted } from "vue";
+import { projectFirestore } from "@/firebase/config";
+
+export default {
+  data() {
+    return {
+      isMobile: false,
+      learningSkills: "",
+      showSeeMore: false,
+      error: null,
+    };
+  },
+  setup() {
+    const learningSkills = ref("");
+    const showSeeMore = ref(false);
+    const error = ref(null);
+
+    onMounted(async () => {
+      try {
+        const skillsRef = projectFirestore.collection("skills");
+        const querySnapshot = await skillsRef.where("learning", "==", true).get();
+
+        if (!querySnapshot.empty) {
+          const skillsList = [];
+          querySnapshot.forEach((doc) => {
+            skillsList.push(doc.data().title);
+          });
+
+          if (skillsList.length <= 2) {
+            learningSkills.value = skillsList.join(" and ");
+          } else {
+            learningSkills.value = skillsList.slice(0, 2).join(", ");
+            showSeeMore.value = true;
+          }
+        } else {
+          // Jika tidak ada bahasa yang sedang dipelajari, atur pesan kustom
+          error.value = "learn more about programming";
+        }
+      } catch (err) {
+        console.error("Error fetching skills:", err);
+        error.value = "Error fetching skills.";
+      }
+    });
+
+    return { learningSkills, showSeeMore, error };
+  },
+  methods: {
+    isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
     },
-    mounted() {
-      this.isMobile = this.isMobileDevice();
-    },
-    methods: {
-      isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-      },
-    },
-  };
-  </script>
-  
+  },
+};
+</script>

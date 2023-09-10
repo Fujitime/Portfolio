@@ -1,23 +1,23 @@
 <template>
-  <div>
+  <div  >
     <router-link
       v-if="isAdmin || post.isActive"
       :to="{ name: 'ShowPost', params: { slug: post.slug } }"
       class="bg-gray-800 shadow-md rounded-lg p-4 transition duration-300 transform cursor-pointer hover:shadow-xl hover:bg-gray-900 hover:text-blue-500 flex flex-col lg:flex-row"
     >
-      <img
-        v-if="post.thumbnail"
-        :src="post.thumbnail"
-        alt="Post Thumbnail"
-        class="w-32 h-32 object-cover mr-4 rounded-lg mb-4 lg:w-32 lg:h-32"
-      />
+    <img
+      v-if="post.thumbnail"
+      :src="post.thumbnail"
+      alt="Post Thumbnail"
+      class="w-full md:w-32 lg:w-48 h-auto object-cover mx-auto rounded-lg mb-4"
+    />
       <div class="flex-grow lg:pl-4">
         <h2 class="text-xl font-semibold text-white mb-2">{{ post.title }}</h2>
         <div class="flex flex-wrap">
           <span
             v-for="tag in post.tags"
             :key="tag"
-            class="mr-2 mb-1 px-2 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-600"
+            class="mr-2 mb-1 px-2 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full "
           >
             <router-link :to="{ name: 'Tag', params: { tag: tag } }">
               #{{ tag }}

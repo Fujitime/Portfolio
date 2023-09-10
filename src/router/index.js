@@ -30,7 +30,7 @@ const routes = [
     name: "Blogposts",
     component: BlogPosts,
     meta: {
-      title: "Blog Posts",
+      title: "Posts",
     },
   },
   {
@@ -142,14 +142,19 @@ const routes = [
     meta: {
       title: "Guestbook",
     },
+  },{
+  path: "/posts/:slug",
+  name: "ShowPost",
+  component: ShowPost,
+  props: true,
+  beforeEnter: (to, from, next) => {
+    const slug = to.params.slug.toUpperCase(); // Ambil slug dari URL
+    const title = slug.replace(/-/g, ' '); // Mengganti tanda hubung dengan spasi
+    document.title = title; // Atur judul halaman
+    next();
   },
-  {
-    path: "/posts/:slug",
-    name: "ShowPost",
-    component: ShowPost,
-    props: true,
     meta: {
-      title: "View Post",
+      title: "", // Biarkan kosong, karena judul akan diatur dalam beforeEnter
     },
   },
   {

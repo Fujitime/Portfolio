@@ -26,4 +26,22 @@ export default {
 body {
   background-color: #1f2937;
 }
+html{
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
 </style>
