@@ -5,10 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "start": "vue-cli-service serve",
-    "dev": "vue-cli-service serve",
+    "dev": "vue-cli-service build &&  vue-cli-service serve -s dist",
     "run-build": " vue-cli-service serve -s dist",
     "build": "vue-cli-service build && cp netlify.toml dist/",
-    "dev": "vue-cli-service build &&  vue-cli-service serve -s dist",
     "watch": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css -w"
   },
   "dependencies": {
@@ -26,12 +25,14 @@
     "tinymce": "^6.6.1",
     "vue": "^3.2.13",
     "vue-disqus": "^4.0.1",
+    "vue-pdf": "^4.3.0",
     "vue-router": "^4.0.3",
     "vue-writer": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@popperjs/core": "^2.11.6",
+    "@tailwindcss/typography": "^0.5.10",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",

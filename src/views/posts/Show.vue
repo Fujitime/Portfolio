@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="container mx-auto px-4 py-8 mt-40 lg:py-16">
-      <div class="mx-auto max-w-4xl">
+    <div class="container mx-auto px-4 py-8 mt-28 lg:py-16">
+      <div class="mx-auto max-w-5xl">
         <div class="text-white">
           <div v-if="error" class="text-red-500">{{ error }}</div>
           <div v-else>
             <div v-if="post">
               <div class="mb-6">
-                <h1 class="text-4xl font-bold mb-2">{{ post.title }}</h1>
+                <h1 class="text-3xl lg:text-4xl font-semibold mb-2">{{ post.title }}</h1>
                 <div class="flex flex-wrap gap-2">
                   <span
                     v-for="tag in post.tags"
                     :key="tag"
-                    class="text-gray-400 text-sm"
+                    class="text-gray-400 text-sm py-1"
                   >
                     #{{ tag }}
                   </span>
@@ -32,13 +32,9 @@
                     </div>
                   </div>
                 </div>
-
-
-
               </div>
-              <div>
-                <div class="post-body leading-relaxed" v-html="post.body"></div>
-              </div>
+              <article class="prose-invert prose-img:rounded-xl prose-lg prose-headings prose-lead prose-p prose-a prose-blockquote prose-figure prose-figcaption prose-strong prose-em prose-code prose-pre prose-ol prose-ul prose-li prose-table prose-thead prose-tr prose-th prose-td prose-img prose-video prose-hr text-white" v-html="post.body">
+              </article>
               <hr class="my-6 border-gray-600" />
             </div>
             <div v-else>
@@ -89,7 +85,6 @@
                   </button>
                 </div>
               </div>
-
               </div>
             </div>
             <Disqus v-if="showDisqus" />
@@ -183,9 +178,6 @@ export default {
 </script>
 
 <style>
-.post-body {
-  white-space: pre-wrap;
-}
 
 .dropdown {
   position: relative;
