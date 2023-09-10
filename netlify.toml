@@ -1,64 +1,95 @@
-[[redirects]]
-  from = "/skill/create"
-  to = "/unauthorized"
-  status = 302
-  condition = '''
-    !(window.isAdmin && window.isAdmin.value)
-  '''
+# netlify.toml
 
-[[redirects]]
-  from = "/skill/edit/:id"
-  to = "/unauthorized"
-  status = 302
-  condition = '''
-    !(window.isAdmin && window.isAdmin.value)
-  '''
+[build]
+  # Set environment variables if needed
+  # environment = { YOUR_ENV_VARIABLE = "your_value" }
 
-[[redirects]]
-  from = "/posts/create"
-  to = "/unauthorized"
-  status = 302
-  condition = '''
-    !(window.isAdmin && window.isAdmin.value)
-  '''
+  # Build command and publish directory
+  command = "npm run build" # Sesuaikan dengan perintah build Anda
+  publish = "dist" # Sesuaikan dengan direktori output build Anda
 
-[[redirects]]
-  from = "/posts/edit/:id"
-  to = "/unauthorized"
-  status = 302
-  condition = '''
-    !(window.isAdmin && window.isAdmin.value)
-  '''
 
-[[redirects]]
-  from = "/project/create"
-  to = "/unauthorized"
-  status = 302
-  condition = '''
-    !(window.isAdmin && window.isAdmin.value)
-  '''
-
-[[redirects]]
-  from = "/guestbook"
-  to = "/guestbook"
-  status = 200
-
-[[redirects]]
-  from = "/posts/:slug"
-  to = "/posts/:slug"
-  status = 200
-
-[[redirects]]
-  from = "/tag/:tag"
-  to = "/tag/:tag"
-  status = 200
-
-[[redirects]]
-  from = "/unauthorized"
-  to = "/unauthorized"
-  status = 200
-
+# Redirects dan rewrites jika diperlukan
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Aturan redirects untuk setiap route
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/posts"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/skills"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/skill/create"
+  to = "/index.html"
+  status = 403
+  force = true
+
+[[redirects]]
+  from = "/skill/edit/:id"
+  to = "/index.html"
+  status = 403
+  force = true
+
+[[redirects]]
+  from = "/posts/create"
+  to = "/index.html"
+  status = 403
+  force = true
+
+[[redirects]]
+  from = "/posts/edit/:id"
+  to = "/index.html"
+  status = 403
+  force = true
+
+[[redirects]]
+  from = "/projects"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/project/create"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/guestbook"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/posts/:slug"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tag/:tag"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/unauthorized"
+  to = "/index.html"
+  status = 200
+  force = true

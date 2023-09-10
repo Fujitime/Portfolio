@@ -7,7 +7,7 @@
     "start": "vue-cli-service serve",
     "dev": "vue-cli-service build &&  vue-cli-service serve -s dist",
     "run-build": " vue-cli-service serve -s dist",
-    "build": "vue-cli-service build && cp netlify.toml dist/",
+    "build": "vue-cli-service build ",
     "watch": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css -w"
   },
   "dependencies": {
