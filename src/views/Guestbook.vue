@@ -47,7 +47,7 @@ export default {
   mounted() {
   this.loadInitialMessages();
 
-  db.collection('messages').orderBy('timestamp', 'desc').limit(10).get()
+  db.collection('messages').orderBy('timestamp', 'desc').get()
     .then(querySnapshot => {
       this.messages = querySnapshot.docs.map(doc => ({
         id: doc.id,
