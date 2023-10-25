@@ -10,9 +10,9 @@
       </div>
     </div>
     <UserProfile v-if="user" :userProfile="userProfile"/>
-    <div class="flex justify-end">
-          <MessageForm v-if="user" @sendMessage="sendMessage" />
-      </div>
+    <div :class="containerClass">
+      <MessageForm v-if="user" @sendMessage="sendMessage" />
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       <div class="">
         <MessageList :messages="messages"/>
@@ -73,8 +73,17 @@ export default {
     }
   });
 },
-
+  computed: {
+    containerClass() {
+      return this.isMobile() ? 'flex justify-center' : 'flex justify-end';
+    },
+  },  
   methods: {
+    isMobile() {
+   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+     return true
+   }
+ },
     loadInitialMessages() {
     db.collection('messages')
       .orderBy('timestamp', 'desc')
