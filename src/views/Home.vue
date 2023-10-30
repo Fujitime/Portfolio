@@ -43,7 +43,7 @@
           <div class="flex items-center justify-center">
             <i class="fas fa-envelope-open-text text-white text-xl mr-2"></i>
             <span class="text-white font-semibold"
-              >Hire <span class="text-blue-500"> Me! </span>
+              >Contact<span class="text-blue-500"> Me! </span>
             </span>
           </div>
         </a>
@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       imageLoaded: false,
-      textArray: ["Web Developer", "Front-end Developer", "Software Engineer"],
+      textArray: ["Web Developer", "Front-end Developer"],
     };
   },
   mounted() {
