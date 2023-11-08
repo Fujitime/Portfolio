@@ -22,9 +22,9 @@
         <p class="text-sm lg:text-lg mb-4" >
           Selain itu, aku memiliki keahlian dalam bahasa pemrograman JavaScript dan beberapa pengetahuan tentang tools frontend. Aku juga terkadang menulis blog tentang keseharianku dan terkadang mengupload konten di YouTube.
         </p>
-        <p class="text-sm lg:text-lg mb-4" >
+        <!-- <p class="text-sm lg:text-lg mb-4" >
           Di samping itu, aku sedang mempelajari tentang pasar saham. Selain itu, aku juga memiliki minat dalam olahraga sepak bola dan suka berlari. Salam kenal dari aku!
-        </p>
+        </p> -->
 
         <div>
           <SocialMedia/>
