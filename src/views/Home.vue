@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       imageLoaded: false,
-      textArray: ["Web Developer", "Front-end Developer"],
+      textArray: ["Web Developer", "Who I Am ?"],
     };
   },
   mounted() {

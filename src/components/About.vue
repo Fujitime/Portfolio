@@ -17,7 +17,7 @@
         </p>
         <p class="text-sm lg:text-lg  mb-10">I have a dream to collaborate with companies or startups, and my enthusiasm for it drives me to keep learning:)</p> -->
         <p class="text-sm lg:text-lg mb-4" >
-          Halo, namaku Fuji Halim Rabbani, biasa dipanggil Fuji. Aku sangat tertarik dengan budaya negara Jepang dan sedang belajar bahasanya. Aku sudah menguasai hiragana dan sedang mempelajari katakana dan kanji secara perlahan. 
+          Halo, namaku Fuji Halim Rabbani, biasa dipanggil Fuji. Saat ini aku tertarik dengan budaya negara Jepang dan sedang belajar bahasanya. Aku sudah menguasai hiragana dan sedang mempelajari katakana dan kanji secara perlahan. 
         </p>
         <p class="text-sm lg:text-lg mb-4" >
           Selain itu, aku memiliki keahlian dalam bahasa pemrograman JavaScript dan beberapa pengetahuan tentang tools frontend. Aku juga terkadang menulis blog tentang keseharianku dan terkadang mengupload konten di YouTube.
