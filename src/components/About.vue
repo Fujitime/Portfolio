@@ -17,11 +17,10 @@
         </p>
         <p class="text-sm lg:text-lg  mb-10">I have a dream to collaborate with companies or startups, and my enthusiasm for it drives me to keep learning:)</p> -->
         <p class="text-sm lg:text-lg mb-4" >
-          Halo, namaku Fuji Halim Rabbani, biasa dipanggil Fuji. Saat ini aku tertarik dengan budaya negara Jepang dan sedang belajar bahasanya. Aku sudah menguasai hiragana dan sedang mempelajari katakana dan kanji secara perlahan. 
+          Halo, namaku Fuji Halim Rabbani, biasa dipanggil Fuji. Saat ini aku tertarik dengan budaya negara Jepang dan sedang belajar bahasanya. 
         </p>
         <p class="text-sm lg:text-lg mb-4" >
-          Selain itu, aku memiliki keahlian dalam bahasa pemrograman JavaScript dan beberapa pengetahuan tentang tools frontend. Aku juga terkadang menulis blog tentang keseharianku dan terkadang mengupload konten di YouTube.
-        </p>
+Di samping itu, saya memiliki keahlian dalam bahasa pemrograman JavaScript dan beberapa pengetahuan tentang alat-alat frontend. Terkadang, saya menulis blog tentang pengalaman sehari-hari saya dan sesekali mengunggah konten di YouTube        </p>
         <!-- <p class="text-sm lg:text-lg mb-4" >
           Di samping itu, aku sedang mempelajari tentang pasar saham. Selain itu, aku juga memiliki minat dalam olahraga sepak bola dan suka berlari. Salam kenal dari aku!
         </p> -->
